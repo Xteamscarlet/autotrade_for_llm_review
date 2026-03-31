@@ -1,4 +1,4 @@
-bash
+```bash```
 
 1. 克隆项目
 git clone <your-repo-url>
