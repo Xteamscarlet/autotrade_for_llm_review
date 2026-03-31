@@ -155,6 +155,7 @@ def run_backtest_loop(
                 confidence = df['transformer_conf'].iloc[i]
                 if confidence < 0.6:
                     continue
+            if price >= df['limit_up'].iloc[i] * 0.995: continue
 
             # 成交量过滤
             if 'Volume' in df.columns:
