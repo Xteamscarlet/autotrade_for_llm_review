@@ -34,15 +34,18 @@ def calculate_transaction_cost(
     计算交易成本（佣金 + 印花税 + 过户费）
     未传入的费率参数使用 config.py 中的全局配置。
     """
+    # engine.py（在 run_backtest_loop 函数内或模块级）
+    _commission_cfg = CommissionConfig.from_env()  # 用 .env 里的配置
+
     # 使用全局配置作为默认值
     if commission_rate is None:
-        commission_rate = CommissionConfig.commission_rate
+        commission_rate = _commission_cfg.commission_rate
     if min_commission is None:
-        min_commission = CommissionConfig.min_commission
+        min_commission = _commission_cfg.min_commission
     if stamp_duty_rate is None:
-        stamp_duty_rate = CommissionConfig.stamp_duty_rate
+        stamp_duty_rate = _commission_cfg.stamp_duty_rate
     if transfer_fee_rate is None:
-        transfer_fee_rate = CommissionConfig.transfer_fee_rate
+        transfer_fee_rate = _commission_cfg.transfer_fee_rate
 
     amount = price * shares
     commission = max(amount * commission_rate, min_commission)

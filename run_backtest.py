@@ -18,7 +18,7 @@ from config import get_settings, STOCK_CODES
 from data import (
     download_market_data, download_stocks_data,
     check_and_clean_cache, load_pickle_cache,
-    calculate_orthogonal_factors,
+    calculate_orthogonal_factors, save_pickle_cache,
 )
 from data.types import NON_FACTOR_COLS
 from backtest.engine import run_backtest_loop, calculate_multi_timeframe_score
@@ -267,6 +267,16 @@ if __name__ == "__main__":
         market_data = load_pickle_cache(settings.paths.market_cache_file)['market_data']
     else:
         market_data = download_market_data()
+
+        if market_data is not None:
+            # 新增：保存大盘缓存
+            save_pickle_cache(
+                settings.paths.market_cache_file,
+                {
+                    'market_data': market_data,
+                    'last_date': market_data.index[-1].strftime('%Y-%m-%d'),
+                },
+            )
     if market_data is None:
         exit()
 
@@ -276,6 +286,18 @@ if __name__ == "__main__":
         stocks_data = load_pickle_cache(settings.paths.stock_cache_file)['stocks_data']
     else:
         stocks_data = download_stocks_data(STOCK_CODES)
+        if stocks_data:
+            # 新增：保存个股缓存
+            # 用所有个股里最后一天的日期作为 last_date（简化处理）
+            last_dates = [df.index[-1] for df in stocks_data.values() if not df.empty]
+            last_date = max(last_dates).strftime('%Y-%m-%d') if last_dates else None
+            save_pickle_cache(
+                settings.paths.stock_cache_file,
+                {
+                    'stocks_data': stocks_data,
+                    'last_date': last_date,
+                },
+            )
     if not stocks_data:
         exit()
 
