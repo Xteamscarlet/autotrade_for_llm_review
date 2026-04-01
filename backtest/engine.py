@@ -5,7 +5,7 @@
 从 backtest_market_v2.py 的 run_backtest_loop() 提取
 """
 import logging
-from typing import Optional, Dict, List, Tuple
+from typing import Optional, Dict, List, Tuple, Any
 
 import numpy as np
 import pandas as pd
@@ -13,7 +13,8 @@ import pandas as pd
 from backtest.optimizer import calculate_dynamic_weights
 from data.types import get_limit_ratio, NON_FACTOR_COLS
 from data.indicators import get_market_regime
-from risk_manager import RiskManager
+from risk_manager import apply_vectorized_risk_controls  # 步骤二新增的函数
+from numba import njit
 
 logger = logging.getLogger(__name__)
 
@@ -297,3 +298,370 @@ def run_backtest_loop(
         'total_return': ((trades_df['net_return'] + 1).prod() - 1) * 100,
     }
     return trades_df, stats, df
+
+# engine.py 内新增
+
+_commission_cfg_cache = None
+_slippage_cfg_cache = None
+
+
+def _get_commission_cfg() -> CommissionConfig:
+    global _commission_cfg_cache
+    if _commission_cfg_cache is None:
+        _commission_cfg_cache = CommissionConfig.from_env()
+    return _commission_cfg_cache
+
+
+def _get_slippage_cfg() -> SlippageConfig:
+    global _slippage_cfg_cache
+    if _slippage_cfg_cache is None:
+        _slippage_cfg_cache = SlippageConfig.from_env()
+    return _slippage_cfg_cache
+
+# engine.py 新增
+
+def generate_order_array(
+    target_pos_ratio: np.ndarray,   # (n,) 目标仓位比例序列（0~1）
+    current_pos_ratio: np.ndarray,  # (n,) 当前仓位比例序列（通常 0）
+) -> np.ndarray:
+    """
+    计算每一期的“目标交易比例”（可正可负）。
+    - trade_ratio > 0：加仓；< 0：减仓；≈0：不操作。
+    - 无 Numba 依赖，纯 Numpy 向量化。
+
+    注意：current_pos_ratio 在大多数场景下是全 0（初始空仓），
+    若你希望保留“已有仓位”的场景，可以在外层把上期实际仓位填入即可。
+    """
+    # 安全转成 float64（Numba 更喜欢）
+    target = np.asarray(target_pos_ratio, dtype=np.float64)
+    current = np.asarray(current_pos_ratio, dtype=np.float64)
+
+    # 截断到 [0, 1]
+    target = np.clip(target, 0.0, 1.0)
+    current = np.clip(current, 0.0, 1.0)
+
+    return target - current  # (n,)
+
+# engine.py 新增
+
+def calculate_transaction_cost_vectorized(
+    prices: np.ndarray,            # (n,) 成交价序列（通常为收盘价）
+    trade_shares: np.ndarray,      # (n,) 实际交易股数（可正可负）
+    direction: np.ndarray,         # (n,) 方向：1=买入，-1=卖出
+    commission_rate: float,
+    min_commission: float,
+    stamp_duty_rate: float,
+    transfer_fee_rate: float,
+) -> np.ndarray:
+    """
+    向量化交易成本（与 calculate_transaction_cost 保持逻辑一致）：
+    - 佣金：max(amount * commission_rate, min_commission)
+    - 印花税：amount * stamp_duty_rate（仅卖出时生效）
+    - 过户费：amount * transfer_fee_rate（仅卖出时生效）
+
+    参数：
+    - prices: (n,) 成交价序列（通常使用 close）
+    - trade_shares: (n,) 实际成交股数（带符号：买入为正，卖出为负）
+    - direction: (n,) 方向标识：1=买入，-1=卖出
+    - commission_rate, min_commission, stamp_duty_rate, transfer_fee_rate：费率参数
+
+    返回：
+    - costs: (n,) 每期交易成本（非负）
+    """
+    prices = np.asarray(prices, dtype=np.float64)
+    trade_shares = np.asarray(trade_shares, dtype=np.float64)
+    direction = np.asarray(direction, dtype=np.float64)
+
+    # 成交金额（带符号，与 trade_shares 同号）
+    amounts = prices * trade_shares  # (n,)
+
+    # 佣金：max(|amount| * commission_rate, min_commission)
+    commission = np.maximum(np.abs(amounts) * commission_rate, min_commission)
+
+    # 印花税 & 过户费：仅卖出（direction < 0）时收取
+    is_sell = direction < 0
+    stamp_duty = np.where(is_sell, np.abs(amounts) * stamp_duty_rate, 0.0)
+    transfer_fee = np.where(is_sell, np.abs(amounts) * transfer_fee_rate, 0.0)
+
+    return commission + stamp_duty + transfer_fee  # (n,)
+
+# engine.py 新增
+
+def calculate_transaction_cost_vectorized(
+    prices: np.ndarray,            # (n,) 成交价序列（通常为收盘价）
+    trade_shares: np.ndarray,      # (n,) 实际交易股数（可正可负）
+    direction: np.ndarray,         # (n,) 方向：1=买入，-1=卖出
+    commission_rate: float,
+    min_commission: float,
+    stamp_duty_rate: float,
+    transfer_fee_rate: float,
+) -> np.ndarray:
+    """
+    向量化交易成本（与 calculate_transaction_cost 保持逻辑一致）：
+    - 佣金：max(amount * commission_rate, min_commission)
+    - 印花税：amount * stamp_duty_rate（仅卖出时生效）
+    - 过户费：amount * transfer_fee_rate（仅卖出时生效）
+
+    参数：
+    - prices: (n,) 成交价序列（通常使用 close）
+    - trade_shares: (n,) 实际成交股数（带符号：买入为正，卖出为负）
+    - direction: (n,) 方向标识：1=买入，-1=卖出
+    - commission_rate, min_commission, stamp_duty_rate, transfer_fee_rate：费率参数
+
+    返回：
+    - costs: (n,) 每期交易成本（非负）
+    """
+    prices = np.asarray(prices, dtype=np.float64)
+    trade_shares = np.asarray(trade_shares, dtype=np.float64)
+    direction = np.asarray(direction, dtype=np.float64)
+
+    # 成交金额（带符号，与 trade_shares 同号）
+    amounts = prices * trade_shares  # (n,)
+
+    # 佣金：max(|amount| * commission_rate, min_commission)
+    commission = np.maximum(np.abs(amounts) * commission_rate, min_commission)
+
+    # 印花税 & 过户费：仅卖出（direction < 0）时收取
+    is_sell = direction < 0
+    stamp_duty = np.where(is_sell, np.abs(amounts) * stamp_duty_rate, 0.0)
+    transfer_fee = np.where(is_sell, np.abs(amounts) * transfer_fee_rate, 0.0)
+
+    return commission + stamp_duty + transfer_fee  # (n,)
+
+# engine.py 新增
+
+@njit
+def run_numba_backtest_engine(
+    close_prices: np.ndarray,      # (n,) 收盘价序列
+    trade_ratios: np.ndarray,      # (n,) 每期目标交易比例（可正可负）
+    cost_array: np.ndarray,        # (n,) 每期交易成本（非负）
+    initial_cash: float,
+    is_buy: np.ndarray,            # (n,) 布尔数组：True=本期净买入，False=净卖出/不操作
+    # 可选：滑点与最小交易单位
+    slippage_bps: float = 0.0,     # 滑点（基点）；0 表示无滑点
+    min_trade_value: float = 0.0,  # 最小成交金额（0 表示不限制）
+) -> tuple:
+    """
+    Numba JIT 状态机：逐日更新 cash/持仓/权益。
+    - 输入全为 Numpy 数组，返回四条曲线（与输入等长）。
+    - slippage_bps：基点滑点（如 15=0.15%）。在买入时向上、卖出时向下打滑。
+    - min_trade_value：单笔最小成交金额，低于此值视为不成交。
+
+    注意：
+    - 此函数虽然看起来像 for 循环，但被 @njit 编译为机器码，几万行数据几毫秒级别完成。
+    """
+    n = len(close_prices)
+    # 预分配输出数组
+    out_cash = np.empty(n, dtype=np.float64)
+    out_pos_shares = np.empty(n, dtype=np.float64)
+    out_equity = np.empty(n, dtype=np.float64)
+    out_actual_trade_shares = np.empty(n, dtype=np.float64)
+
+    cash = initial_cash
+    pos_shares = 0.0
+
+    # 滑点因子（1 + slippage_bps/10000）
+    slippage_factor = 1.0 + slippage_bps / 10000.0
+
+    for i in range(n):
+        price = close_prices[i]
+        trade_ratio = trade_ratios[i]
+        cost = cost_array[i]
+        buy_flag = is_buy[i]
+
+        # 1) 当前总权益
+        equity = cash + pos_shares * price
+
+        # 2) 目标交易金额（基于权益）
+        target_value = equity * trade_ratio       # 带符号：>0 买入，<0 卖出
+        if not buy_flag and target_value > 0.0:
+            # 若本应卖出（由 trade_ratio 符号判断），但方向标志为非买入，
+            # 此时可能因为资金不足导致目标由买转卖。直接取目标值的负数作为卖出。
+            target_value = -target_value
+
+        # 3) 拆分为股数（考虑滑点）
+        if buy_flag:
+            # 买入：价格向上滑
+            exec_price = price * slippage_factor
+        else:
+            # 卖出：价格向下滑
+            exec_price = price / slippage_factor
+
+        # 避免除零
+        if exec_price <= 0.0:
+            exec_price = 1e-12
+
+        delta_shares = target_value / exec_price  # 带符号的股数差
+
+        # 4) 若为买入方向，检查可用资金
+        if buy_flag:
+            # 需要的额外现金 = 买入金额 + 成本
+            required_cash = delta_shares * exec_price + cost
+            if required_cash > cash:
+                # 资金不足，按最大可买调整
+                # cash >= delta_shares * exec_price + cost
+                # → delta_shares <= (cash - cost) / exec_price
+                if exec_price > 0.0:
+                    delta_shares = (cash - cost) / exec_price
+                else:
+                    delta_shares = 0.0
+
+                # 确保不为负
+                if delta_shares < 0.0:
+                    delta_shares = 0.0
+
+                # 再次计算对应的成本（简化处理：仍用原始 cost）
+                # 严格做法是在循环外再跑一次成本函数；此处为性能折衷
+        # 若为卖出方向，理论上不受资金约束，但需要确保不会卖出超过持仓
+        else:
+            # delta_shares < 0
+            if -delta_shares > pos_shares:
+                # 最多清仓
+                delta_shares = -pos_shares
+
+        # 5) 最小成交金额过滤（可选）
+        trade_value = abs(delta_shares * exec_price)
+        if min_trade_value > 0.0 and trade_value < min_trade_value:
+            delta_shares = 0.0
+
+        # 6) 更新持仓与现金
+        cash -= delta_shares * exec_price + cost
+        pos_shares += delta_shares
+
+        # 7) 记录到输出数组
+        out_cash[i] = cash
+        out_pos_shares[i] = pos_shares
+        out_equity[i] = cash + pos_shares * price
+        out_actual_trade_shares[i] = delta_shares
+
+    return (out_cash, out_pos_shares, out_equity, out_actual_trade_shares)
+
+# engine.py 新增
+
+def run_backtest_loop_vectorized(
+    df: pd.DataFrame,
+    strategy_instances: list,
+    risk_cfg: Optional[Any] = None,           # RiskConfig
+    commission_cfg: Optional[CommissionConfig] = None,
+    slippage_cfg: Optional[SlippageConfig] = None,
+    initial_cash: float = 1_000_000.0,
+    slippage_bps: float = 0.0,
+    min_trade_value: float = 0.0,
+    # 可选：是否使用基类提供的 generate_signals_vectorized（若策略未覆写则逐行回退）
+    use_vectorized_signals: bool = True,
+) -> pd.DataFrame:
+    """
+    向量化回测主调度（步骤 4 的具体实现）：
+    - 步骤 1：调用 strategy.generate_signals_vectorized()（逐行回退亦可）；
+    - 步骤 2：调用 risk_manager.apply_vectorized_risk_controls()；
+    - 步骤 3：Numpy 准备数组 → 订单数组 → 成本数组；
+    - 步骤 4：调用 Numba JIT 状态机；
+    - 步骤 5：将结果写回 df 并返回。
+
+    说明：
+    - 保持与原 run_backtest_loop 类似的输入输出（返回 df，带 equity_curve/backtest_cash/backtest_position 列）。
+    - 建议在 run_backtest.py 中根据开关选择是否使用此函数。
+    """
+    out_df = df.copy()
+
+    # ---------------------------
+    # 0) 配置对象
+    # ---------------------------
+    if commission_cfg is None:
+        commission_cfg = _get_commission_cfg()
+    if slippage_cfg is None:
+        slippage_cfg = _get_slippage_cfg()
+
+    # ---------------------------
+    # 1) 策略信号向量化
+    # ---------------------------
+    if use_vectorized_signals:
+        for strategy in strategy_instances:
+            # 直接调用 generate_signals_vectorized（基类默认实现会逐行回退）
+            out_df = strategy.generate_signals_vectorized(
+                out_df,
+                params=getattr(strategy, "params", None),
+            )
+            # 若你有多策略融合逻辑，可在此处对 target_position_ratio 做加权平均/投票等
+
+    # ---------------------------
+    # 2) 风控向量化过滤
+    # ---------------------------
+    out_df = apply_vectorized_risk_controls(out_df, risk_cfg=risk_cfg)
+
+    # ---------------------------
+    # 3) 准备 Numpy 数组
+    # ---------------------------
+    # 确保 target_position_ratio 列存在且合法
+    if "target_position_ratio" not in out_df.columns:
+        raise KeyError(
+            "apply_vectorized_risk_controls 必须在 df 中生成 'target_position_ratio' 列。"
+            "请检查步骤一/二是否正确执行。"
+        )
+
+    target_ratio = out_df["target_position_ratio"].to_numpy(dtype=np.float64)
+    n = len(target_ratio)
+
+    # 使用收盘价作为成交价（根据需要可以切换为 open/next_open）
+    close_col = "close" if "close" in out_df.columns else "Close"
+    close = out_df[close_col].to_numpy(dtype=np.float64)
+
+    # 初始仓位比率为 0（空仓）
+    current_ratio = np.zeros(n, dtype=np.float64)
+
+    # ---------------------------
+    # 4) 订单数组（向量化）
+    # ---------------------------
+    trade_ratios = generate_order_array(target_ratio, current_ratio)  # (n,)
+
+    # ---------------------------
+    # 5) 成本数组（向量化）
+    # ---------------------------
+    # 5.1) 先按“目标股数”估算成本（简化：不考虑资金约束）
+    target_values = np.empty(n, dtype=np.float64)
+    for i in range(n):
+        equity = initial_cash  # 近似值；真实 equity 在 Numba 循环中更新
+        target_values[i] = equity * trade_ratios[i]
+
+    # 避免除零
+    safe_close = np.where(close > 0.0, close, 1e-12)
+    target_shares_est = target_values / safe_close  # 带符号的股数
+
+    # 方向：>0 为买入，<0 为卖出
+    direction = np.where(target_shares_est >= 0, 1.0, -1.0)
+    is_buy = target_shares_est >= 0
+
+    # 5.2) 调用向量化成本函数
+    cost_array = calculate_transaction_cost_vectorized(
+        prices=close,
+        trade_shares=target_shares_est,
+        direction=direction,
+        commission_rate=commission_cfg.commission_rate,
+        min_commission=commission_cfg.min_commission,
+        stamp_duty_rate=commission_cfg.stamp_duty_rate,
+        transfer_fee_rate=commission_cfg.transfer_fee_rate,
+    )
+
+    # ---------------------------
+    # 6) Numba JIT 状态机
+    # ---------------------------
+    cash_arr, pos_arr, equity_arr, trades_arr = run_numba_backtest_engine(
+        close_prices=close,
+        trade_ratios=trade_ratios,
+        cost_array=cost_array,
+        initial_cash=initial_cash,
+        is_buy=is_buy,
+        slippage_bps=slippage_bps,
+        min_trade_value=min_trade_value,
+    )
+
+    # ---------------------------
+    # 7) 结果写回 DataFrame
+    # ---------------------------
+    out_df = out_df.copy()
+    out_df["equity_curve"] = equity_arr
+    out_df["backtest_cash"] = cash_arr
+    out_df["backtest_position"] = pos_arr
+    out_df["backtest_trade_shares"] = trades_arr
+
+    return out_df

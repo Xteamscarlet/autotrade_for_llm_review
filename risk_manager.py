@@ -5,7 +5,7 @@
 - 软目标：回测后全局风险评估，不达标则策略被标记为 discard
 - 新增：向量化风控（apply_vectorized_risk_controls）
 """
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 import numpy as np
 import pandas as pd
 
@@ -422,3 +422,133 @@ class RiskManager:
         df["signal_action"] = signal_action
 
         return df
+
+
+
+
+def apply_vectorized_risk_controls(
+    df: pd.DataFrame,
+    risk_cfg: Optional[Any] = None,  # 类型为 RiskConfig，避免循环导入写 Any
+    *,
+    # 可选的覆写参数（若为 None 则使用 risk_cfg 字段）
+    bear_position_cap: Optional[float] = None,
+    bull_position_cap: Optional[float] = None,
+    neutral_position_cap: Optional[float] = None,
+) -> pd.DataFrame:
+    """
+    向量化风控过滤器（步骤二）：
+    - 基于 target_position_ratio 与 market_regime（如有）做仓位上限压缩。
+    - 对涨停/跌停日禁止开新仓（将 signal_action 中的买入清零），通常也同步把 target_position_ratio 归零。
+    - 可在进入 Numba 状态机之前调用，避免在循环里做复杂判断。
+
+    契约：
+    - 输入 df 至少包含：
+      - target_position_ratio（0~1 的目标仓位）
+      - close/open/high/low（用于涨跌停判断，列名需与 DATA 模块一致）
+      - （可选）market_regime: str 列（取值 "bull"/"bear"/"neutral"）
+    - 输出 df：在输入 df 的副本上修改以下列并返回：
+      - target_position_ratio（按市场状态上限压缩）
+      - signal_action（买入信号按涨跌停/不可交易条件清零）
+
+    注意：
+    - 保持无状态：所有决策仅基于当前行数据，可安全向量化。
+    """
+    out = df.copy()
+
+    # ---------------------------
+    # 1) 确保必要列存在并初始化（防御性编程）
+    # ---------------------------
+    for col in ("signal_action", "target_position_ratio"):
+        if col not in out.columns:
+            out[col] = 0.0  # int 信号也兼容 float 初始化，下面会按需重设 dtype
+
+    # 保证 signal_action 的数值类型统一（避免 bool/object 问题）
+    if not np.issubdtype(out["signal_action"].dtype, np.integer):
+        out["signal_action"] = pd.to_numeric(out["signal_action"], errors="coerce").fillna(0).astype(np.int8)
+
+    # ---------------------------
+    # 2) 市场状态 → 仓位上限压缩
+    # ---------------------------
+    regime_cap_map: Dict[str, float] = {}
+
+    # 尝试从 risk_cfg 读取 cap 参数（保持与你原有风控配置兼容）
+    if risk_cfg is not None:
+        bear_cap = getattr(risk_cfg, "bear_position_cap", None)
+        bull_cap = getattr(risk_cfg, "bull_position_cap", None)
+        neutral_cap = getattr(risk_cfg, "neutral_position_cap", None)
+        if bear_cap is not None:
+            regime_cap_map["bear"] = float(bear_cap)
+        if bull_cap is not None:
+            regime_cap_map["bull"] = float(bull_cap)
+        if neutral_cap is not None:
+            regime_cap_map["neutral"] = float(neutral_cap)
+
+    # 允许参数级别覆写（优先级高于 risk_cfg）
+    if bear_position_cap is not None:
+        regime_cap_map["bear"] = float(bear_position_cap)
+    if bull_position_cap is not None:
+        regime_cap_map["bull"] = float(bull_position_cap)
+    if neutral_position_cap is not None:
+        regime_cap_map["neutral"] = float(neutral_position_cap)
+
+    # 兜底默认值：若无配置则允许满仓
+    regime_cap_map.setdefault("bear", 0.3)      # 熊市默认最多 30% 仓位
+    regime_cap_map.setdefault("bull", 1.0)      # 牛市默认最多 100%
+    regime_cap_map.setdefault("neutral", 0.8)  # 中性默认 80%
+
+    # 如果 df 中包含 market_regime 列，就做压缩
+    if "market_regime" in out.columns:
+        reg = out["market_regime"].astype(str).str.strip().str.lower()
+        caps = reg.map(regime_cap_map).astype(float)         # Series[float]
+        out["target_position_ratio"] = np.minimum(
+            out["target_position_ratio"].astype(float),
+            caps,
+        )
+    else:
+        # 无 market_regime 列时，使用中性上限（保守但安全）
+        neutral_cap = regime_cap_map.get("neutral", 0.8)
+        out["target_position_ratio"] = np.minimum(
+            out["target_position_ratio"].astype(float),
+            float(neutral_cap),
+        )
+
+    # ---------------------------
+    # 3) 涨跌停过滤（禁止开新仓）
+    # ---------------------------
+    # 尽量兼容多种列名（根据你 data 模块的命名习惯调整）
+    close_col = "close" if "close" in out.columns else "Close"
+    open_col = "open" if "open" in out.columns else "Open"
+    high_col = "high" if "high" in out.columns else "High"
+    low_col = "low" if "low" in out.columns else "Low"
+
+    # 若缺少关键列，跳过涨跌停判断
+    if all(c in out.columns for c in (close_col, open_col, high_col, low_col)):
+        c = out[close_col].astype(float)
+        o = out[open_col].astype(float)
+        h = out[high_col].astype(float)
+        l = out[low_col].astype(float)
+
+        # 简单涨停/跌停判定（不含复权复杂度）：
+        # - 涨停：close ≈ high 且 close > open
+        # - 跌停：close ≈ low 且 close < open
+        # 使用容差 eps 避免浮点误差
+        eps = 1e-6
+        limit_up = (np.abs(c - h) <= c.abs() * eps + 1e-8) & (c > o)
+        limit_down = (np.abs(c - l) <= c.abs() * eps + 1e-8) & (c < o)
+
+        # 将涨停/跌停日的“买入”信号清零（signal_action=1 → 0）
+        buy_mask = out["signal_action"] == 1
+        suppress_mask = buy_mask & (limit_up | limit_down)
+
+        # 将买入信号置 0（卖出保持不变）
+        out.loc[suppress_mask, "signal_action"] = 0
+
+        # 同步将 target_position_ratio 清零，避免 Numba 引擎错误开仓
+        out.loc[suppress_mask, "target_position_ratio"] = 0.0
+
+    # ---------------------------
+    # 4) 确保边界：target_position_ratio 在 [0, 1]
+    # ---------------------------
+    out["target_position_ratio"] = np.clip(out["target_position_ratio"].astype(float), 0.0, 1.0)
+
+    return out
