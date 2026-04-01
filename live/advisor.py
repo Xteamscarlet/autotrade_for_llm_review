@@ -12,7 +12,7 @@ from typing import Optional, Dict, List
 import numpy as np
 import pandas as pd
 
-from config import get_settings, STOCK_CODES
+from config import get_settings, STOCK_CODES, RebalanceFreq
 from data import (
     download_market_data, download_stocks_data,
     check_and_clean_cache, load_pickle_cache,
@@ -23,6 +23,8 @@ from data.types import NON_FACTOR_COLS
 from backtest.engine import calculate_multi_timeframe_score, calculate_transaction_cost
 from live.signal_filter import classify_signal_confidence, filter_by_microstructure
 from live.portfolio_risk import check_portfolio_limits
+from datetime import datetime, date, timedelta
+import calendar  # 用于处理周数（可选）
 
 logger = logging.getLogger(__name__)
 
@@ -47,10 +49,84 @@ def load_strategies() -> Optional[Dict]:
     with open(settings.paths.strategy_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def should_rebalance_today(settings) -> bool:
+    """
+    根据 SchedulerConfig 判断今天是否是调仓日。
+    - 周频：在指定的 rebalance_anchor_weekday（默认周一）运行即算调仓日。
+    - 双周：
+        若有 rebalance_anchor_date（YYYY-MM-DD），则以该日所在周为基准，每隔一周；
+        若无，则以“当前周是第偶数周（0-indexed）”为判断依据。
+    """
+    cfg = settings.scheduler
+    now = date.today()
+    weekday = now.weekday()  # 0=Mon
+
+    # 如果当前不是锚点星期几，直接 false（可根据需求改为只要在该周内即可）
+    if weekday != cfg.rebalance_anchor_weekday:
+        return False
+
+    if cfg.rebalance_freq == RebalanceFreq.WEEKLY:
+        return True
+
+    # BIWEEKLY 分支
+    anchor = cfg.rebalance_anchor_date
+    if anchor:
+        try:
+            d0 = datetime.strptime(anchor, "%Y-%m-%d").date()
+        except Exception:
+            # 配置错误时回退为“双周=偶数周”
+            return _biweekly_even_week(now)
+        # 以锚点所在周的周一为基准
+        monday0 = d0 - timedelta(days=d0.weekday())
+        monday_now = now - timedelta(days=weekday)
+        diff_days = (monday_now - monday0).days
+        return diff_days % 14 == 0
+    else:
+        return _biweekly_even_week(now)
+
+def _biweekly_even_week(d: date) -> bool:
+    """简单的双周判断：当前周数（自年初起）为偶数则执行。"""
+    iso = d.isocalendar()  # (year, week, weekday)
+    return iso[1] % 2 == 0
+
+def _dry_run_without_rebalance(settings):
+    """非调仓日：仅刷新数据，不做调仓决策。"""
+    logger.info("非调仓日：仅刷新数据缓存（不做调仓）。")
+    # 可直接复用你现有的数据刷新逻辑（避免重复代码）
+    # 这里给一个最小示例：
+    if not check_and_clean_cache(settings.paths.market_cache_file):
+        download_market_data()
+    if not check_and_clean_cache(settings.paths.stock_cache_file):
+        download_stocks_data(STOCK_CODES)
+
+
 
 def run_advisor():
     """实盘决策辅助主函数"""
     settings = get_settings()
+    print("\n" + "=" * 60)
+    print("实盘决策助手 V3 启动")
+    print("=" * 60)
+    print(f" 策略文件: {settings.paths.strategy_file}")
+    print(f" 持仓文件: {settings.paths.portfolio_file}")
+    print(f" 模型路径: {settings.paths.model_path}")
+    print(f" 风控 - 最大回撤: {settings.risk.max_drawdown_limit}%")
+    print(f" 风控 - 最小利润因子: {settings.risk.min_profit_factor}")
+    print(f" 风控 - 单只最大仓位: {settings.risk.max_position_ratio:.0%}")
+    print(f" 风控 - 最小胜率: {settings.risk.min_win_rate}%")
+    print(
+        f" 调仓频率: {settings.scheduler.rebalance_freq.value}（锚点周几={settings.scheduler.rebalance_anchor_weekday}）")
+    print("=" * 60)
+    # ---- 新增：调仓频率判断 ----
+    if not should_rebalance_today(settings):
+        now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{now_str}] 非调仓日，本次跳过（REBALANCE_FREQ={settings.scheduler.rebalance_freq.value}）。")
+        # 可选：仍然执行数据刷新但不生成买卖建议
+        # return  # 如果“非调仓日完全不动”，就取消注释 return
+        # 下面演示“继续拉数据但不生成调仓指令”的分支：
+        _dry_run_without_rebalance(settings)
+        return
+    # ---- 结束：调仓频率判断 ----
     init_portfolio_file()
 
     print("\n" + "=" * 60)

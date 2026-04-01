@@ -208,6 +208,43 @@ class SlippageConfig:
             buy_slippage_rate=_env_float("COMMISSION_RATE", 0.0015),
             sell_slippage_rate=_env_float("MIN_COMMISSION", 0.9985)
         )
+from enum import Enum
+
+class RebalanceFreq(str, Enum):
+    WEEKLY = "weekly"      # 每周
+    BIWEEKLY = "biweekly"  # 每两周
+
+def _env_rebalance_freq(key: str, default: str = "weekly") -> RebalanceFreq:
+    val = _env(key, default).lower()
+    # 兼容中文写法（可选）
+    mapping = {
+        "weekly": RebalanceFreq.WEEKLY,
+        "biweekly": RebalanceFreq.BIWEEKLY,
+        "week": RebalanceFreq.WEEKLY,
+        "biweek": RebalanceFreq.BIWEEKLY,
+        "双周": RebalanceFreq.BIWEEKLY,
+        "两周": RebalanceFreq.BIWEEKLY,
+        "周": RebalanceFreq.WEEKLY,
+        "每周": RebalanceFreq.WEEKLY,
+    }
+    return mapping.get(val, RebalanceFreq(default))
+
+@dataclass
+class SchedulerConfig:
+    """调度与频率配置"""
+    rebalance_freq: RebalanceFreq = RebalanceFreq.WEEKLY
+    rebalance_anchor_weekday: int = 0  # 0=周一；1=周二 ... 6=周日
+    # 可选：基准日（若希望双周以某个周一为锚点）
+    rebalance_anchor_date: str = ""     # 格式 YYYY-MM-DD；为空则自动用本周的 rebalance_anchor_weekday
+
+    @classmethod
+    def from_env(cls) -> "SchedulerConfig":
+        return cls(
+            rebalance_freq=_env_rebalance_freq("REBALANCE_FREQ", "weekly"),
+            rebalance_anchor_weekday=_env_int("REBALANCE_ANCHOR_WEEKDAY", 0),
+            rebalance_anchor_date=_env("REBALANCE_ANCHOR_DATE", ""),
+        )
+
 
 @dataclass
 class AppConfig:
@@ -219,6 +256,7 @@ class AppConfig:
     # 新增
     commission:CommissionConfig= field(default_factory=CommissionConfig)
     slippage: SlippageConfig = field(default_factory=SlippageConfig)
+    scheduler: SchedulerConfig = field(default_factory=SchedulerConfig)  # 新增
 
     @classmethod
     def from_env(cls) -> "AppConfig":
@@ -229,6 +267,7 @@ class AppConfig:
             paths=PathConfig.from_env(),
             commission=CommissionConfig.from_env(),
             slippage=SlippageConfig.from_env(),
+            scheduler=SchedulerConfig.from_env(),  # 新增这一行
         )
 
     def ensure_dirs(self):
@@ -295,5 +334,4 @@ def get_settings() -> AppConfig:
         _settings = AppConfig.from_env()
         _settings.ensure_dirs()
     return _settings
-
 
