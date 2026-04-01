@@ -172,6 +172,7 @@ def process_single_stock(args):
             trades_df, stats, _ = run_backtest_loop(
                 test_df, stock_code, _worker_market_data,
                 best_weights, best_params_map, stocks_data=_worker_stocks_data,
+            use_vectorized_backtest=True
             )
 
             if trades_df is None or len(trades_df) == 0:

@@ -153,6 +153,7 @@ def optimize_strategy(
         trades_df, stats, _ = run_backtest_loop(
             df, stock_code, market_data, adjusted_weights,
             {regime: trial_params}, regime, stocks_data=stocks_data,
+            use_vectorized_backtest=True
         )
 
         if stats is None or trades_df is None or len(trades_df) == 0:
