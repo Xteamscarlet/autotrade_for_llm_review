@@ -756,8 +756,9 @@ def run_backtest_loop_compatible(
     # --------- 策略实例：不再写死 TransformerStrategy ----------
     # 方案 A：最简单，直接复用你现有的因子 + weights 生成 target_position_ratio
     from strategies.base import BaseStrategy
-    default_strategy = BaseStrategy()
-    # 策略参数从哪来？你已经把 params 按 regime 放到 df["param_dict"] 里了，
+    from strategies.compound_signal import CompoundSignalStrategy
+
+    default_strategy = CompoundSignalStrategy()    # 策略参数从哪来？你已经把 params 按 regime 放到 df["param_dict"] 里了，
     # 如果策略需要“某个 regime 下的参数”，可以在向量化函数里直接用 df["param_dict"]
     # 或者在这里挑一个默认策略参数 dict（比如 neutral）：
     default_strategy.params = params.get("neutral", params)
