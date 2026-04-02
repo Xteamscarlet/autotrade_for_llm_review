@@ -156,28 +156,6 @@ python run_advisor.py --dry-run -v
 
 ---
 
-## 🛠️ 开发者与审查者须知
-
-在对此代码进行二次开发或 LLM Review 时，请重点关注以下已知的技术债和优化点：
-
-### 1. 配置注入缺陷
-* **问题**：`config.py` 中的 `SlippageConfig.from_env()` 原先存在字段映射错误（将 `buy_slippage_rate` 映射到了 `COMMISSION_RATE`，将 `sell_slippage_rate` 的默认值设为了 `0.9985`，这在语义上是极其混乱的）。
-* **改进**：代码审查时需确保 `.env` 中的变量名与 `os.getenv()` 的 key 绝对一致，且所有比率默认值应统一为小数形式（如 0.0015），而非 (1 - rate) 的形式。
-
-### 2. 可复现性
-* **问题**：当前代码缺少全局随机种子设定。
-* **改进**：在 `run_train.py` 启动时，必须添加 `torch.manual_seed()`, `numpy.random.seed()`, 以及设置 `torch.backends.cudnn.deterministic = True`，否则 Optuna 寻优和模型训练的结果将无法复现。
-
-### 3. 数据源鲁棒性
-* **问题**：`efinance`/`akshare` 接口不稳定，经常出现限流或字段变更。
-* **改进**：`data/loader.py` 需要增加指数退避重试机制，并且在 `indicators.py` 计算前，严格校验 OHLCV 数据的逻辑合法性（如 `High >= Low`，`Volume >= 0`）。
-
-### 4. 实盘 Advisor 的边界条件
-* **问题**：在 `run_advisor.py` 计算建议买入股数时，未充分考虑 A 股的“最少买入 100 股（1手）”规则以及资金不足时的向下取整逻辑。
-* **改进**：输出最终建议前，必须加入整手校验逻辑：`target_shares = int(available_cash * weight / price / 100) * 100`。
-
----
-
 ## 📄 开源协议
 
 MIT License
