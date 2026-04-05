@@ -15,7 +15,7 @@ from scipy.stats import spearmanr
 import optuna
 from sklearn.model_selection import TimeSeriesSplit
 
-from data.types import NON_FACTOR_COLS
+from data.types import NON_FACTOR_COLS, TRADITIONAL_FACTOR_COLS
 from backtest.evaluator import calculate_comprehensive_stats
 from config import get_settings
 
@@ -55,7 +55,10 @@ def calculate_dynamic_weights(
         return {col: 1.0 / len(factor_cols) for col in factor_cols}
 
     # 过滤有效因子列
-    valid_factors = [col for col in factor_cols if col in df.columns]
+    valid_factors = [
+        col for col in factor_cols
+        if col in df.columns and pd.api.types.is_numeric_dtype(df[col])
+    ]
     if len(valid_factors) == 0:
         logger.warning("无有效因子列，返回空权重")
         return {}
@@ -226,7 +229,7 @@ def optimize_strategy(
 
     # 计算权重
     if weights is None:
-        factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+        factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
         weights = calculate_dynamic_weights(df, factor_cols)
 
     try:
@@ -390,7 +393,7 @@ def optimize_all_regimes(
     from data.types import ALL_REGIMES
 
     best_params_map = {}
-    factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+    factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
     weights = calculate_dynamic_weights(df, factor_cols)
 
     for regime in ALL_REGIMES:

@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 from backtest.optimizer import calculate_dynamic_weights
-from data.types import get_limit_ratio, NON_FACTOR_COLS
+from data.types import get_limit_ratio, TRADITIONAL_FACTOR_COLS
 from data.indicators_no_transformer import get_market_regime
 from risk_manager import RiskManager
 
@@ -147,7 +147,7 @@ def run_backtest_loop_no_transformer(
         return None, None, df
 
     # 新增：因子列检查
-    factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+    factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS ]
     if len(factor_cols) == 0:
         logger.warning(f"[{stock_code}] 无有效因子列")
         return None, None, df
@@ -390,7 +390,7 @@ def calculate_multi_timeframe_score_no_transformer(
 
     try:
         # 基础得分
-        factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+        factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
         score = 0.0
         weight_sum = 0.0
 

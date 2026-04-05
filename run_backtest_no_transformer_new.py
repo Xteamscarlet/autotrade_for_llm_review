@@ -24,7 +24,7 @@ from data.loader_new import download_market_data, download_stocks_data
 #     check_and_clean_cache, load_pickle_cache,
 #     save_pickle_cache,
 # )
-from data.types import NON_FACTOR_COLS
+from data.types import NON_FACTOR_COLS, TRADITIONAL_FACTOR_COLS
 from backtest.engine_no_transformer_new import run_backtest_loop_no_transformer, \
     calculate_multi_timeframe_score_no_transformer
 from backtest.optimizer_new import optimize_strategy, walk_forward_split, calculate_dynamic_weights
@@ -205,7 +205,7 @@ def _process_single_stock(stock_code: str) -> dict:
             }
 
         # 计算因子权重
-        factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+        factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
         best_weights = calculate_dynamic_weights(df, factor_cols)
 
         # 参数优化

@@ -63,11 +63,11 @@ def check_and_clean_cache(cache_file: str) -> bool:
             need_update = True
 
         if need_update:
-            logger.info(f"缓存过期: {cache_file} (最后日期: {last_date})")
+            print(f"缓存过期: {cache_file} (最后日期: {last_date})")
             os.remove(cache_file)
             return False
 
-        logger.info(f"缓存有效: {cache_file} (最后日期: {last_date})")
+        print(f"缓存有效: {cache_file} (最后日期: {last_date})")
         return True
 
     except Exception as e:

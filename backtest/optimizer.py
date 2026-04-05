@@ -14,7 +14,7 @@ from scipy.stats import spearmanr
 import optuna
 from sklearn.model_selection import TimeSeriesSplit
 
-from data.types import NON_FACTOR_COLS
+from data.types import NON_FACTOR_COLS, TRADITIONAL_FACTOR_COLS
 from backtest.evaluator import calculate_comprehensive_stats
 from config import get_settings
 
@@ -183,7 +183,7 @@ def optimize_strategy(
         print(f" [警告] {stock_code} 传入 optimize_strategy 的数据缺少因子列，正在补充计算...")
         df = calculate_orthogonal_factors(df, stock_code)
 
-    factor_cols = [col for col in df.columns if col not in NON_FACTOR_COLS]
+    factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
     weights = calculate_dynamic_weights(df, factor_cols)
 
     def objective(trial, regime):

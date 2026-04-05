@@ -1,1461 +1,1182 @@
-E:\autotrade\autotrade_for_llm_review>python run_backtest_no_transformer.py
-================================================================================
-增强版策略回测系统 V3 (无Transformer版本)
-================================================================================
-
-[1/3] 检查大盘数据...
+E:\autotrade\autotrade_for_llm_review>python run_backtest_no_transformer_new.py
+2026-04-05 22:39:17,525 - __main__ - INFO - ================================================================================
+2026-04-05 22:39:17,525 - __main__ - INFO - 开始回测（无Transformer版本）
+2026-04-05 22:39:17,525 - __main__ - INFO - ================================================================================
+2026-04-05 22:39:17,525 - __main__ - INFO - 步骤1: 准备数据...
+2026-04-05 22:39:17,556 - data.loader_new - INFO - 下载大盘数据:(尝试 1/3)
+2026-04-05 22:39:19,603 - data.loader_new - ERROR - 下载大盘数据失败 (尝试 1/3): HTTPSConnectionPool(host='finance.sina.com.cn', port=443): Max retries exceeded with url: /realstock/company/sh000001/hisdata/klc_kl.js?d=2020_2_4 (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002419912B450>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2026-04-05 22:39:20,604 - data.loader_new - INFO - 下载大盘数据:(尝试 2/3)
+2026-04-05 22:39:22,667 - data.loader_new - ERROR - 下载大盘数据失败 (尝试 2/3): HTTPSConnectionPool(host='finance.sina.com.cn', port=443): Max retries exceeded with url: /realstock/company/sh000001/hisdata/klc_kl.js?d=2020_2_4 (Caused by ProxyError('Unable to connect to proxy', NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000241991512D0>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。')))
+2026-04-05 22:39:24,667 - data.loader_new - INFO - 下载大盘数据:(尝试 3/3)
+2026-04-05 22:39:28,337 - data.loader_new - INFO - 大盘数据下载成功: 8614 行
 
 [2/3] 检查个股数据...
 下载股票数据...
-下载失败: ['比亚迪', '中信证券', '长江电力']
+2026-04-05 22:39:28,355 - data.loader_new - INFO - 开始下载 20 只股票数据...
+2026-04-05 22:39:46,219 - data.loader_new - WARNING - [贵州茅台] Open 存在 3508 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:39:46,220 - data.loader_new - WARNING - [贵州茅台] High 存在 3506 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:39:46,221 - data.loader_new - WARNING - [贵州茅台] Low 存在 3510 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:39:46,221 - data.loader_new - WARNING - [贵州茅台] Close 存在 3507 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:02,110 - data.loader_new - WARNING - [美的集团] Open 存在 372 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:02,110 - data.loader_new - WARNING - [美的集团] High 存在 355 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:02,110 - data.loader_new - WARNING - [美的集团] Low 存在 389 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:02,110 - data.loader_new - WARNING - [美的集团] Close 存在 370 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:34,098 - data.loader_new - WARNING - [隆基绿能] Open 存在 128 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:34,099 - data.loader_new - WARNING - [隆基绿能] High 存在 119 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:34,099 - data.loader_new - WARNING - [隆基绿能] Low 存在 138 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:40:34,100 - data.loader_new - WARNING - [隆基绿能] Close 存在 124 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:22,053 - data.loader_new - WARNING - [科大讯飞] Open 存在 16 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:22,058 - data.loader_new - WARNING - [科大讯飞] High 存在 11 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:22,061 - data.loader_new - WARNING - [科大讯飞] Low 存在 19 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:22,062 - data.loader_new - WARNING - [科大讯飞] Close 存在 15 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:38,116 - data.loader_new - WARNING - [海康威视] Open 存在 659 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:38,117 - data.loader_new - WARNING - [海康威视] High 存在 652 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:38,117 - data.loader_new - WARNING - [海康威视] Low 存在 666 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:38,118 - data.loader_new - WARNING - [海康威视] Close 存在 660 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:54,259 - data.loader_new - WARNING - [中信证券] Open 存在 894 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:54,260 - data.loader_new - WARNING - [中信证券] High 存在 890 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:54,260 - data.loader_new - WARNING - [中信证券] Low 存在 899 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:41:54,261 - data.loader_new - WARNING - [中信证券] Close 存在 896 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:26,465 - data.loader_new - WARNING - [恒瑞医药] Open 存在 1451 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:26,465 - data.loader_new - WARNING - [恒瑞医药] High 存在 1450 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:26,466 - data.loader_new - WARNING - [恒瑞医药] Low 存在 1452 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:26,467 - data.loader_new - WARNING - [恒瑞医药] Close 存在 1450 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:42,588 - data.loader_new - WARNING - [山东黄金] Open 存在 617 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:42,589 - data.loader_new - WARNING - [山东黄金] High 存在 611 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:42,590 - data.loader_new - WARNING - [山东黄金] Low 存在 624 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:42,590 - data.loader_new - WARNING - [山东黄金] Close 存在 614 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:58,664 - data.loader_new - WARNING - [紫金矿业] Open 存在 18 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:58,665 - data.loader_new - WARNING - [紫金矿业] High 存在 14 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:58,665 - data.loader_new - WARNING - [紫金矿业] Low 存在 20 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:42:58,666 - data.loader_new - WARNING - [紫金矿业] Close 存在 16 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:14,772 - data.loader_new - WARNING - [长江电力] Open 存在 2194 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:14,773 - data.loader_new - WARNING - [长江电力] High 存在 2178 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:14,773 - data.loader_new - WARNING - [长江电力] Low 存在 2207 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:14,774 - data.loader_new - WARNING - [长江电力] Close 存在 2194 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:30,980 - data.loader_new - WARNING - [东方电气] Open 存在 665 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:30,981 - data.loader_new - WARNING - [东方电气] High 存在 596 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:30,982 - data.loader_new - WARNING - [东方电气] Low 存在 734 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:30,982 - data.loader_new - WARNING - [东方电气] Close 存在 668 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:47,066 - data.loader_new - WARNING - [歌尔股份] Open 存在 305 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:47,066 - data.loader_new - WARNING - [歌尔股份] High 存在 292 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:47,067 - data.loader_new - WARNING - [歌尔股份] Low 存在 314 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:43:47,067 - data.loader_new - WARNING - [歌尔股份] Close 存在 300 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:19,284 - data.loader_new - WARNING - [中航沈飞] Open 存在 662 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:19,284 - data.loader_new - WARNING - [中航沈飞] High 存在 648 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:19,285 - data.loader_new - WARNING - [中航沈飞] Low 存在 677 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:19,285 - data.loader_new - WARNING - [中航沈飞] Close 存在 663 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:35,420 - data.loader_new - WARNING - [北大荒] Open 存在 1041 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:35,421 - data.loader_new - WARNING - [北大荒] High 存在 1024 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:35,422 - data.loader_new - WARNING - [北大荒] Low 存在 1064 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:35,422 - data.loader_new - WARNING - [北大荒] Close 存在 1043 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:51,600 - data.loader_new - WARNING - [北新建材] Open 存在 2732 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:51,601 - data.loader_new - WARNING - [北新建材] High 存在 2688 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:51,601 - data.loader_new - WARNING - [北新建材] Low 存在 2761 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:51,602 - data.loader_new - WARNING - [北新建材] Close 存在 2729 个非正值，执行清洗(置NaN后前向填充)
+2026-04-05 22:44:51,605 - data.loader_new - INFO - 下载完成: 成功 20 只, 失败 0 只
 stocks_data 类型: <class 'dict'>
-stocks_data 长度: 17
+stocks_data 长度: 20
 stocks_data 键示例: ['贵州茅台', '美的集团', '国轩高科']
 
 数据验证:
  类型: <class 'dict'>
- 长度: 17
+ 长度: 20
  前3个键: ['贵州茅台', '美的集团', '国轩高科']
-
-✓ 缓存已保存到: ./stock_cache/no_transformer_stocks_data.pkl
-
-过滤股票...
-过滤后股票数: 20
-警告: 股票 比亚迪 (002594) 在列表中但缺少数据
-警告: 股票 中信证券 (600030) 在列表中但缺少数据
-警告: 股票 长江电力 (600900) 在列表中但缺少数据
-
-匹配结果:
- 过滤后股票数: 20
- 成功匹配数: 17
- 最终有效股票数: 17
-
-[3/3] 开始回测 17 只股票...
-  0%|                                                                                           | 0/17 [00:00<?, ?it/s]
-数据总长度: 2383
-训练集长度: 1668 (70.0%)
-验证集长度: 357 (15.0%)
-测试集长度: 357 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:1668] (1668 天)
-  验证集: [1688:2045] (357 天)
-  测试集: [2065:2383] (318 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-数据总长度: 2595
-训练集长度: 1816 (70.0%)
-验证集长度: 389 (15.0%)
-测试集长度: 389 (15.0%)
-
-数据总长度: 3218间隔天数: 20
-
-第 1 次划分:
-训练集长度: 2252 (70.0%)
-  训练集: [0:1816] (1816 天)
-验证集长度: 482 (15.0%)
-  验证集: [1836:2225] (389 天)
-测试集长度: 482 (15.0%)
-  测试集: [2245:2595] (350 天)
-间隔天数: 20
-
-第 2 次划分：测试集超出数据范围，停止划分第 1 次划分:
-
-  训练集: [0:2252] (2252 天)
-
-总共生成 1 次有效划分  验证集: [2272:2754] (482 天)
-
-  测试集: [2774:3218] (444 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-数据总长度: 4497
-训练集长度: 3147 (70.0%)
-验证集长度: 674 (15.0%)
-测试集长度: 674 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:3147] (3147 天)
-  验证集: [3167:3841] (674 天)
-  测试集: [3861:4497] (636 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-  6%|████▉                                                                              | 1/17 [00:35<09:28, 35.51s/it]
-数据总长度: 2356
-训练集长度: 1649 (70.0%)
-验证集长度: 353 (15.0%)
-测试集长度: 353 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:1649] (1649 天)
-  验证集: [1669:2022] (353 天)
-  测试集: [2042:2356] (314 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_000333
-symbol:           000333
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  37.8
-Start                     2023-02-16 00:00:00+00:00
-End                       2024-09-19 00:00:00+00:00
-Duration                           581 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -499126.21
-Equity Peak [$]                        156.31
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -4200.0000
-Volatility (Ann.) [%]                     0.1230
-CAGR [%]                                 -4200.0000
-Sharpe Ratio                               -204634.0056
-Sortino Ratio                              -204634.0056
-Calmar Ratio                              -42.0000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9705
-Max. Drawdown Duration             5 days 00:00:00
-Avg. Drawdown Duration              5 days 00:00:00
-# Trades                                          6
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8437
-Worst Trade [%]                           -99.8627
-Avg. Trade [%]                             -99.8544
-Max. Trade Duration                32 days 00:00:00
-Avg. Trade Duration                 24 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8544
-SQN                                        -31575.7126
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-204634.01) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] ✗ total_trades(6) < 15
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 美的集团 - 核心风控指标未通过，策略丢弃
- 12%|█████████▊                                                                         | 2/17 [00:37<03:59, 15.96s/it]
-数据总长度: 4242
-训练集长度: 2969 (70.0%)
-验证集长度: 636 (15.0%)
-测试集长度: 636 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2969] (2969 天)
-  验证集: [2989:3625] (636 天)
-  测试集: [3645:4242] (597 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_601012
-symbol:           601012
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  47.4
-Start                     2022-05-12 00:00:00+00:00
-End                       2024-05-07 00:00:00+00:00
-Duration                           726 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1597553.02
-Equity Peak [$]                        144.95
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1482.3529
-Volatility (Ann.) [%]                     0.2985
-CAGR [%]                                 -1482.3529
-Sharpe Ratio                               -84288.9815
-Sortino Ratio                              -84288.9815
-Calmar Ratio                              -14.8235
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9883
-Max. Drawdown Duration             16 days 00:00:00
-Avg. Drawdown Duration              16 days 00:00:00
-# Trades                                          17
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8138
-Worst Trade [%]                           -99.8793
-Avg. Trade [%]                             -99.8561
-Max. Trade Duration                29 days 00:00:00
-Avg. Trade Duration                 24 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8561
-SQN                                        -21892.4817
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-84288.98) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 隆基绿能 - 核心风控指标未通过，策略丢弃
-
-数据总长度: 3128
-训练集长度: 2189 (70.0%)
-验证集长度: 469 (15.0%)
-测试集长度: 469 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2189] (2189 天)
-  验证集: [2209:2678] (469 天)
-  测试集: [2698:3128] (430 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002074
-symbol:           002074
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  67.1
-Start                     2020-10-12 00:00:00+00:00
-End                       2023-07-18 00:00:00+00:00
-Duration                           1009 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2595987.22
-Equity Peak [$]                        133.52
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -933.3333
-Volatility (Ann.) [%]                     0.2571
-CAGR [%]                                 -933.3333
-Sharpe Ratio                               -97869.0837
-Sortino Ratio                              -97869.0837
-Calmar Ratio                              -9.3333
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9950
-Max. Drawdown Duration             26 days 00:00:00
-Avg. Drawdown Duration              26 days 00:00:00
-# Trades                                          27
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8182
-Worst Trade [%]                           -99.8770
-Avg. Trade [%]                             -99.8514
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 24 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8514
-SQN                                        -32035.1775
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-97869.08) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 国轩高科 - 核心风控指标未通过，策略丢弃
- 18%|██████████████▋                                                                    | 3/17 [01:07<05:08, 22.06s/it]
-数据总长度: 3968
-训练集长度: 2777 (70.0%)
-验证集长度: 595 (15.0%)
-测试集长度: 595 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2777] (2777 天)
-  验证集: [2797:3392] (595 天)
-  测试集: [3412:3968] (556 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_601127
-symbol:           601127
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  33.8
-Start                     2023-06-02 00:00:00+00:00
-End                       2024-11-15 00:00:00+00:00
-Duration                           532 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -598991.70
-Equity Peak [$]                        146.57
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -3600.0000
-Volatility (Ann.) [%]                     0.2711
-CAGR [%]                                 -3600.0000
-Sharpe Ratio                               -92809.2414
-Sortino Ratio                              -92809.2414
-Calmar Ratio                              -36.0000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9764
-Max. Drawdown Duration             6 days 00:00:00
-Avg. Drawdown Duration              6 days 00:00:00
-# Trades                                          7
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8309
-Worst Trade [%]                           -99.8814
-Avg. Trade [%]                             -99.8560
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 25 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8560
-SQN                                        -15468.2069
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-92809.24) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] ✗ total_trades(7) < 15
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 赛力斯 - 核心风控指标未通过，策略丢弃
- 29%|████████████████████████▍                                                          | 5/17 [01:09<02:02, 10.18s/it]
-数据总长度: 4676
-训练集长度: 3273 (70.0%)
-验证集长度: 701 (15.0%)
-测试集长度: 701 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:3273] (3273 天)
-  验证集: [3293:3994] (701 天)
-  测试集: [4014:4676] (662 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002415
-symbol:           002415
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  46.2
-Start                     2022-06-21 00:00:00+00:00
-End                       2024-05-27 00:00:00+00:00
-Duration                           706 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1397789.73
-Equity Peak [$]                        175.77
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1680.0000
-Volatility (Ann.) [%]                     0.1851
-CAGR [%]                                 -1680.0000
-Sharpe Ratio                               -135969.5193
-Sortino Ratio                              -135969.5193
-Calmar Ratio                              -16.8000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9910
-Max. Drawdown Duration             14 days 00:00:00
-Avg. Drawdown Duration              14 days 00:00:00
-# Trades                                          15
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8242
-Worst Trade [%]                           -99.8746
-Avg. Trade [%]                             -99.8526
-Max. Trade Duration                29 days 00:00:00
-Avg. Trade Duration                 19 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8526
-SQN                                        -33173.1659
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-135969.52) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 海康威视 - 核心风控指标未通过，策略丢弃
-
-数据总长度: 4624
-训练集长度: 3236 (70.0%)
-验证集长度: 693 (15.0%)
-测试集长度: 693 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:3236] (3236 天)
-  验证集: [3256:3949] (693 天)
-  测试集: [3969:4624] (655 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002230
-symbol:           002230
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  63.7
-Start                     2021-01-28 00:00:00+00:00
-End                       2023-09-11 00:00:00+00:00
-Duration                           956 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1697350.94
-Equity Peak [$]                        157.78
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1400.0000
-Volatility (Ann.) [%]                     0.2560
-CAGR [%]                                 -1400.0000
-Sharpe Ratio                               -98289.3669
-Sortino Ratio                              -98289.3669
-Calmar Ratio                              -14.0000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9904
-Max. Drawdown Duration             17 days 00:00:00
-Avg. Drawdown Duration              17 days 00:00:00
-# Trades                                          18
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8240
-Worst Trade [%]                           -99.8802
-Avg. Trade [%]                             -99.8528
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 24 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8528
-SQN                                        -26268.9383
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-98289.37) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 科大讯飞 - 核心风控指标未通过，策略丢弃
- 35%|█████████████████████████████▎                                                     | 6/17 [01:41<03:01, 16.52s/it]
-数据总长度: 4295
-训练集长度: 3006 (70.0%)
-验证集长度: 644 (15.0%)
-测试集长度: 644 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:3006] (3006 天)
-  验证集: [3026:3670] (644 天)
-  测试集: [3690:4295] (605 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002281
-symbol:           002281
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  56.9
-Start                     2021-06-04 00:00:00+00:00
-End                       2023-11-15 00:00:00+00:00
-Duration                           894 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2296366.31
-Equity Peak [$]                        119.39
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1050.0000
-Volatility (Ann.) [%]                     0.3909
-CAGR [%]                                 -1050.0000
-Sharpe Ratio                               -64361.0034
-Sortino Ratio                              -64361.0034
-Calmar Ratio                              -10.5000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9942
-Max. Drawdown Duration             23 days 00:00:00
-Avg. Drawdown Duration              23 days 00:00:00
-# Trades                                          24
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8007
-Worst Trade [%]                           -99.8812
-Avg. Trade [%]                             -99.8486
-Max. Trade Duration                36 days 00:00:00
-Avg. Trade Duration                 21 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8486
-SQN                                        -19862.2369
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-64361.00) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 光迅科技 - 核心风控指标未通过，策略丢弃
- 47%|███████████████████████████████████████                                            | 8/17 [02:04<02:07, 14.16s/it]
-数据总长度: 6484
-训练集长度: 4538 (70.0%)
-验证集长度: 972 (15.0%)
-测试集长度: 972 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:4538] (4538 天)
-  验证集: [4558:5530] (972 天)
-  测试集: [5550:6484] (934 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_600276
-symbol:           600276
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  68.9
-Start                     2020-07-21 00:00:00+00:00
-End                       2023-06-08 00:00:00+00:00
-Duration                           1052 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2496254.49
-Equity Peak [$]                        137.08
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -969.2308
-Volatility (Ann.) [%]                     0.1628
-CAGR [%]                                 -969.2308
-Sharpe Ratio                               -154605.1062
-Sortino Ratio                              -154605.1062
-Calmar Ratio                              -9.6923
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9940
-Max. Drawdown Duration             25 days 00:00:00
-Avg. Drawdown Duration              25 days 00:00:00
-# Trades                                          26
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8246
-Worst Trade [%]                           -99.8672
-Avg. Trade [%]                             -99.8559
-Max. Trade Duration                32 days 00:00:00
-Avg. Trade Duration                 19 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8559
-SQN                                        -49660.4027
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-154605.11) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 恒瑞医药 - 核心风控指标未通过，策略丢弃
- 53%|███████████████████████████████████████████▉                                       | 9/17 [02:18<01:53, 14.14s/it]
-数据总长度: 3996
-训练集长度: 2797 (70.0%)
-验证集长度: 599 (15.0%)
-测试集长度: 599 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2797] (2797 天)
-  验证集: [2817:3416] (599 天)
-  测试集: [3436:3996] (560 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_600547
-symbol:           600547
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  65.5
-Start                     2020-08-10 00:00:00+00:00
-End                       2023-06-19 00:00:00+00:00
-Duration                           1043 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2596044.91
-Equity Peak [$]                        143.27
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -933.3333
-Volatility (Ann.) [%]                     0.2970
-CAGR [%]                                 -933.3333
-Sharpe Ratio                               -84721.2933
-Sortino Ratio                              -84721.2933
-Calmar Ratio                              -9.3333
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9952
-Max. Drawdown Duration             26 days 00:00:00
-Avg. Drawdown Duration              26 days 00:00:00
-# Trades                                          27
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8169
-Worst Trade [%]                           -99.8821
-Avg. Trade [%]                             -99.8535
-Max. Trade Duration                29 days 00:00:00
-Avg. Trade Duration                 22 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8535
-SQN                                        -27731.5528
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-84721.29) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 山东黄金 - 核心风控指标未通过，策略丢弃
- 59%|████████████████████████████████████████████████▏                                 | 10/17 [02:39<01:51, 15.91s/it]
-数据总长度: 3670
-训练集长度: 2569 (70.0%)
-验证集长度: 550 (15.0%)
-测试集长度: 550 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2569] (2569 天)
-  验证集: [2589:3139] (550 天)
-  测试集: [3159:3670] (511 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_601899
-symbol:           601899
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  60.0
-Start                     2021-01-06 00:00:00+00:00
-End                       2023-08-30 00:00:00+00:00
-Duration                           966 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2296361.38
-Equity Peak [$]                        141.54
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1050.0000
-Volatility (Ann.) [%]                     0.2349
-CAGR [%]                                 -1050.0000
-Sharpe Ratio                               -107131.5120
-Sortino Ratio                              -107131.5120
-Calmar Ratio                              -10.5000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9930
-Max. Drawdown Duration             23 days 00:00:00
-Avg. Drawdown Duration              23 days 00:00:00
-# Trades                                          24
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8268
-Worst Trade [%]                           -99.8700
-Avg. Trade [%]                             -99.8484
-Max. Trade Duration                29 days 00:00:00
-Avg. Trade Duration                 24 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8484
-SQN                                        -33061.5024
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-107131.51) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 紫金矿业 - 核心风控指标未通过，策略丢弃
- 65%|█████████████████████████████████████████████████████                             | 11/17 [02:41<01:13, 12.25s/it]
-数据总长度: 6233
-训练集长度: 4363 (70.0%)
-验证集长度: 934 (15.0%)
-测试集长度: 934 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:4363] (4363 天)
-  验证集: [4383:5317] (934 天)
-  测试集: [5337:6233] (896 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002241
-symbol:           002241
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  53.0
-Start                     2021-05-25 00:00:00+00:00
-End                       2023-11-09 00:00:00+00:00
-Duration                           898 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1597503.49
-Equity Peak [$]                        150.53
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1482.3529
-Volatility (Ann.) [%]                     0.2857
-CAGR [%]                                 -1482.3529
-Sharpe Ratio                               -88059.5839
-Sortino Ratio                              -88059.5839
-Calmar Ratio                              -14.8235
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9896
-Max. Drawdown Duration             16 days 00:00:00
-Avg. Drawdown Duration              16 days 00:00:00
-# Trades                                          17
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8236
-Worst Trade [%]                           -99.8788
-Avg. Trade [%]                             -99.8531
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 22 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8531
-SQN                                        -22871.8250
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-88059.58) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 歌尔股份 - 核心风控指标未通过，策略丢弃
-
-数据总长度: 4663
-训练集长度: 3264 (70.0%)
-验证集长度: 699 (15.0%)
-测试集长度: 699 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:3264] (3264 天)
-  验证集: [3284:3983] (699 天)
-  测试集: [4003:4663] (660 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_002384
-symbol:           002384
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  46.1
-Start                     2021-10-20 00:00:00+00:00
-End                       2024-01-18 00:00:00+00:00
-Duration                           820 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2196292.44
-Equity Peak [$]                        173.17
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1095.6522
-Volatility (Ann.) [%]                     0.3910
-CAGR [%]                                 -1095.6522
-Sharpe Ratio                               -64349.4149
-Sortino Ratio                              -64349.4149
-Calmar Ratio                              -10.9565
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9911
-Max. Drawdown Duration             22 days 00:00:00
-Avg. Drawdown Duration              22 days 00:00:00
-# Trades                                          23
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.7979
-Worst Trade [%]                           -99.8863
-Avg. Trade [%]                             -99.8388
-Max. Trade Duration                31 days 00:00:00
-Avg. Trade Duration                 23 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8388
-SQN                                        -19440.5367
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-64349.41) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 东山精密 - 核心风控指标未通过，策略丢弃
-
-数据总长度: 4020
-训练集长度: 2814 (70.0%)
-验证集长度: 603 (15.0%)
-测试集长度: 603 (15.0%)
-间隔天数: 20
-第 1 次划分:
-  训练集: [0:2814] (2814 天)
-  验证集: [2834:3437] (603 天)
-  测试集: [3457:4020] (563 天)
-
-第 2 次划分：测试集超出数据范围，停止划分
-
-总共生成 1 次有效划分
-
-strategy:         compound_signal_600875
-symbol:           600875
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  87.2
-Start                     2018-04-26 00:00:00+00:00
-End                       2022-04-26 00:00:00+00:00
-Duration                           1461 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -2895608.08
-Equity Peak [$]                        186.07
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -840.0000
-Volatility (Ann.) [%]                     0.2931
-CAGR [%]                                 -840.0000
-Sharpe Ratio                               -85862.7917
-Sortino Ratio                              -85862.7917
-Calmar Ratio                              -8.4000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9957
-Max. Drawdown Duration             29 days 00:00:00
-Avg. Drawdown Duration              29 days 00:00:00
-# Trades                                          30
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8023
-Worst Trade [%]                           -99.8811
-Avg. Trade [%]                             -99.8536
-Max. Trade Duration                33 days 00:00:00
-Avg. Trade Duration                 25 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8536
-SQN                                        -29625.4777
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-85862.79) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 东方电气 - 核心风控指标未通过，策略丢弃
- 71%|█████████████████████████████████████████████████████████▉                        | 12/17 [03:31<01:53, 22.69s/it]
-strategy:         compound_signal_600760
-symbol:           600760
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  82.9
-Start                     2018-08-15 00:00:00+00:00
-End                       2022-06-23 00:00:00+00:00
-Duration                           1408 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -3195235.68
-Equity Peak [$]                        135.29
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -763.6364
-Volatility (Ann.) [%]                     0.2175
-CAGR [%]                                 -763.6364
-Sharpe Ratio                               -115715.1190
-Sortino Ratio                              -115715.1190
-Calmar Ratio                              -7.6364
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9957
-Max. Drawdown Duration             32 days 00:00:00
-Avg. Drawdown Duration              32 days 00:00:00
-# Trades                                          33
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8123
-Worst Trade [%]                           -99.8721
-Avg. Trade [%]                             -99.8556
-Max. Trade Duration                32 days 00:00:00
-Avg. Trade Duration                 18 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8556
-SQN                                        -41874.2273
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-115715.12) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 中航沈飞 - 核心风控指标未通过，策略丢弃
- 88%|████████████████████████████████████████████████████████████████████████▎         | 15/17 [04:04<00:32, 16.36s/it]
-strategy:         compound_signal_600598
-symbol:           600598
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  61.0
-Start                     2020-07-27 00:00:00+00:00
-End                       2023-06-12 00:00:00+00:00
-Duration                           1050 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1697396.28
-Equity Peak [$]                        151.64
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1400.0000
-Volatility (Ann.) [%]                     0.2015
-CAGR [%]                                 -1400.0000
-Sharpe Ratio                               -124891.3463
-Sortino Ratio                              -124891.3463
-Calmar Ratio                              -14.0000
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9918
-Max. Drawdown Duration             17 days 00:00:00
-Avg. Drawdown Duration              17 days 00:00:00
-# Trades                                          18
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8324
-Worst Trade [%]                           -99.8794
-Avg. Trade [%]                             -99.8553
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 22 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8553
-SQN                                        -33378.6163
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-124891.35) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 北大荒 - 核心风控指标未通过，策略丢弃
- 94%|█████████████████████████████████████████████████████████████████████████████▏    | 16/17 [04:12<00:14, 14.59s/it]
-strategy:         compound_signal_000786
-symbol:           000786
-timeframe:        daily
-max_leverage:     1.0
-elapsed_seconds:  50.6
-Start                     2021-05-14 00:00:00+00:00
-End                       2023-11-06 00:00:00+00:00
-Duration                           906 days 00:00:00
-Exposure Time [%]                         100.0000
-Equity Final [$]                       -1497641.98
-Equity Peak [$]                        149.90
-Commissions [$]                          0.00
-Return [%]                                -100.0000
-Buy & Hold Return [%]                      N/A
-Return (Ann.) [%]                         -1575.0000
-Volatility (Ann.) [%]                     0.1846
-CAGR [%]                                 -1575.0000
-Sharpe Ratio                               -136346.1142
-Sortino Ratio                              -136346.1142
-Calmar Ratio                              -15.7500
-Alpha [%]                                 N/A
-Beta                                      N/A
-Max. Drawdown [%]                         -100.0000
-Avg. Drawdown [%]                         -99.9892
-Max. Drawdown Duration             15 days 00:00:00
-Avg. Drawdown Duration              15 days 00:00:00
-# Trades                                          16
-Win Rate [%]                              0.0000
-Best Trade [%]                            -99.8298
-Worst Trade [%]                           -99.8705
-Avg. Trade [%]                             -99.8526
-Max. Trade Duration                28 days 00:00:00
-Avg. Trade Duration                 23 days 00:00:00
-Profit Factor                              0.0000
-Expectancy [%]                             -99.8526
-SQN                                        -34355.9915
-Kelly Criterion                            0.0000
-
-risk_passed: False | max_drawdown: -100.00% ✗ | profit_factor: 0.00 ✗
-[RISK] ✗ max_drawdown(-100.00%) < -20.00%
-[RISK] ✗ profit_factor(0.00) < 1.50
-[RISK] ✗ sharpe_ratio(-136346.11) < 0.50
-[RISK] ✗ win_rate(0.0%) < 40.0%
-[RISK] Strategy status = DISCARD (core limits failed)
-
- [DISCARD] 北新建材 - 核心风控指标未通过，策略丢弃
-100%|██████████████████████████████████████████████████████████████████████████████████| 17/17 [04:15<00:00, 15.05s/it]
-
-================================================================================
-测试集汇总报告（无Transformer版本）
-================================================================================
-名称                  收益%      胜率%     交易       夏普      最大回撤%     利润因子
---------------------------------------------------------------------------------
-
-================================================================================
-【组合回测】等权组合测试集总收益（无Transformer版本）
-================================================================================
-警告: 没有有效策略，无法计算组合收益
-
-✓ 策略参数已写入: ./stock_cache/no_transformer_results\optimized_strategies_no_transformer.json
- 保留策略数: 0 / 总股票数: 17
-
-================================================================================
-开始生成可视化图表...
-================================================================================
-
-================================================================================
-所有可视化图表生成完成！目录: ./stock_cache/no_transformer_results\backtest_charts
-================================================================================
-
-E:\autotrade\autotrade_for_llm_review>\
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+2026-04-05 22:44:51,616 - utils.stock_filter_new - INFO - 股票池过滤完成: 原始 20 只, 移除 0 只, 保留 20 只
+2026-04-05 22:44:51,616 - __main__ - INFO - 有效股票数量: 20
+2026-04-05 22:44:51,616 - __main__ - INFO - 步骤2: 执行回测...
+回测进度:   0%|                                                                                 | 0/20 [00:00<?, ?it/s]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:58,826 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:58,954 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:59,327 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:59,664 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:59,758 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:44:59,897 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:00,597 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+2026-04-05 22:45:01,406 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:08,605 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:08,821 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:08,822 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:08,822 - backtest.engine_no_transformer_new - INFO - [美的集团] 开始回测，数据长度: 596，因子数: 7
+2026-04-05 22:45:08,822 - __mp_main__ - ERROR - 处理股票 美的集团 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:08,828 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:09,516 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:10,174 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+2026-04-05 22:45:10,344 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:10,600 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:10,600 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:10,600 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 开始回测，数据长度: 671，因子数: 7
+2026-04-05 22:45:10,603 - __mp_main__ - ERROR - 处理股票 隆基绿能 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:10,605 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:11,692 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:12,741 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+2026-04-05 22:45:13,990 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:14,209 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:14,210 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:14,210 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 开始回测，数据长度: 1178，因子数: 7
+2026-04-05 22:45:14,211 - __mp_main__ - ERROR - 处理股票 贵州茅台 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:14,213 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:   5%|███▋                                                                     | 1/20 [00:16<05:09, 16.29s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:14,777 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:14,985 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:14,986 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:14,986 - backtest.engine_no_transformer_new - INFO - [国轩高科] 开始回测，数据长度: 899，因子数: 7
+2026-04-05 22:45:14,987 - __mp_main__ - ERROR - 处理股票 国轩高科 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:14,989 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  15%|██████████▉                                                              | 3/20 [00:17<01:16,  4.51s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:15,385 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:16,081 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:16,625 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+2026-04-05 22:45:17,173 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:17,419 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:17,626 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:17,626 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:17,626 - backtest.engine_no_transformer_new - INFO - [赛力斯] 开始回测，数据长度: 471，因子数: 7
+2026-04-05 22:45:17,631 - __mp_main__ - ERROR - 处理股票 赛力斯 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:17,632 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  25%|██████████████████▎                                                      | 5/20 [00:19<00:43,  2.87s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:19,281 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:20,912 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:23,875 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:24,091 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:24,091 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:24,092 - backtest.engine_no_transformer_new - INFO - [比亚迪] 开始回测，数据长度: 714，因子数: 7
+2026-04-05 22:45:24,093 - __mp_main__ - ERROR - 处理股票 比亚迪 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:24,093 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  30%|█████████████████████▉                                                   | 6/20 [00:26<00:53,  3.84s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:25,266 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:26,465 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:28,116 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:28,372 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:28,372 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:28,373 - backtest.engine_no_transformer_new - INFO - [海康威视] 开始回测，数据长度: 758，因子数: 7
+2026-04-05 22:45:28,373 - __mp_main__ - ERROR - 处理股票 海康威视 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:28,374 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:30,330 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:30,441 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:30,706 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:30,706 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:30,706 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 开始回测，数据长度: 852，因子数: 7
+2026-04-05 22:45:30,706 - __mp_main__ - ERROR - 处理股票 科大讯飞 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:30,710 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  35%|█████████████████████████▌                                               | 7/20 [00:32<00:59,  4.61s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:32,093 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:32,204 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:33,735 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:37,162 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:37,369 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:37,369 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:37,370 - backtest.engine_no_transformer_new - INFO - [中信证券] 开始回测，数据长度: 1108，因子数: 7
+2026-04-05 22:45:37,370 - __mp_main__ - ERROR - 处理股票 中信证券 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:37,371 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  45%|████████████████████████████████▊                                        | 9/20 [00:39<00:44,  4.04s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:38,524 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:39,056 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:39,252 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:39,252 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:39,252 - backtest.engine_no_transformer_new - INFO - [光迅科技] 开始回测，数据长度: 793，因子数: 7
+2026-04-05 22:45:39,253 - __mp_main__ - ERROR - 处理股票 光迅科技 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:39,254 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  50%|████████████████████████████████████                                    | 10/20 [00:41<00:35,  3.52s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:39,641 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:40,563 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:41,911 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:47,814 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:48,021 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:48,021 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:48,021 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 开始回测，数据长度: 1225，因子数: 7
+2026-04-05 22:45:48,021 - __mp_main__ - ERROR - 处理股票 恒瑞医药 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:48,021 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  55%|███████████████████████████████████████▌                                | 11/20 [00:50<00:43,  4.86s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:48,388 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:48,595 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:48,596 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:48,596 - backtest.engine_no_transformer_new - INFO - [山东黄金] 开始回测，数据长度: 1049，因子数: 7
+2026-04-05 22:45:48,597 - __mp_main__ - ERROR - 处理股票 山东黄金 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:48,598 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  60%|███████████████████████████████████████████▏                            | 12/20 [00:50<00:29,  3.72s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:49,749 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:50,134 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:50,919 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:52,110 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:52,264 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:45:52,476 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:52,477 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:52,478 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 开始回测，数据长度: 863，因子数: 7
+2026-04-05 22:45:52,478 - __mp_main__ - ERROR - 处理股票 紫金矿业 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:52,479 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  65%|██████████████████████████████████████████████▊                         | 13/20 [00:54<00:26,  3.76s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:53,368 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:53,489 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:53,583 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:45:53,583 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:45:53,583 - backtest.engine_no_transformer_new - INFO - [长江电力] 开始回测，数据长度: 1002，因子数: 7
+2026-04-05 22:45:53,583 - __mp_main__ - ERROR - 处理股票 长江电力 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:45:53,583 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+回测进度:  70%|██████████████████████████████████████████████████▍                     | 14/20 [00:55<00:18,  3.01s/it]E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:54,454 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+2026-04-05 22:45:55,464 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:45:57,343 - backtest.optimizer_new - WARNING - 因子 股票代码 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:46:03,405 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:46:03,612 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:46:03,613 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:46:03,613 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 开始回测，数据长度: 862，因子数: 7
+2026-04-05 22:46:03,614 - __mp_main__ - ERROR - 处理股票 歌尔股份 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:46:03,615 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:46:05,299 - backtest.optimizer_new - WARNING - 因子 股票名称 IC全为NaN，使用默认权重
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+2026-04-05 22:46:05,305 - backtest.optimizer_new - INFO - 动态权重计算完成: 7 个因子
+2026-04-05 22:46:05,504 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-05 22:46:05,505 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-05 22:46:05,505 - backtest.engine_no_transformer_new - INFO - [东山精密] 开始回测，数据长度: 734，因子数: 7
+2026-04-05 22:46:05,505 - __mp_main__ - ERROR - 处理股票 东山精密 时出错: can't multiply sequence by non-int of type 'float'
+2026-04-05 22:46:05,506 - __mp_main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 131, in _evaluate_numexpr
+    result = _evaluate_standard(op, op_str, a, b)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 234, in _process_single_stock
+    trades_df, stats, result_df = run_backtest_loop_no_transformer(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\autotrade\autotrade_for_llm_review\backtest\engine_no_transformer_new.py", line 168, in run_backtest_loop_no_transformer
+    df['score'] += df[col] * (w / weight_sum)
+                   ~~~~~~~~^~~~~~~~~~~~~~~~~~
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\series.py", line 6135, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\base.py", line 1382, in _arith_method
+    result = ops.arithmetic_op(lvalues, rvalues, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 227, in _na_arithmetic_op
+    result = _masked_arith_op(left, right, op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\array_ops.py", line 182, in _masked_arith_op
+    result[mask] = op(xrav[mask], y)
+                   ^^^^^^^^^^^^^^^^^
+TypeError: can't multiply sequence by non-int of type 'float'
+
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+E:\autotrade\autotrade_for_llm_review\backtest\optimizer_new.py:81: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = spearmanr(
+Traceback (most recent call last):
+  File "<frozen importlib._bootstrap_external>", line 1437, in _path_importer_cache
+KeyError: 'C:\\Users\\ydh\\AppData\\Roaming\\Python\\Python311\\site-packages\\pandas\\core\\ops'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "D:\anaconda3\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anaconda3\Lib\multiprocessing\spawn.py", line 131, in _main
+    prepare(preparation_data)
+  File "D:\anaconda3\Lib\multiprocessing\spawn.py", line 246, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])
+  File "D:\anaconda3\Lib\multiprocessing\spawn.py", line 297, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 16, in <module>
+    import pandas as pd
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\__init__.py", line 62, in <module>
+    from pandas.core.api import (
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\api.py", line 28, in <module>
+    from pandas.core.arrays import Categorical
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arrays\__init__.py", line 1, in <module>
+    from pandas.core.arrays.arrow import ArrowExtensionArray
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arrays\arrow\__init__.py", line 5, in <module>
+    from pandas.core.arrays.arrow.array import ArrowExtensionArray
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\arrays\arrow\array.py", line 50, in <module>
+    from pandas.core import (
+  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\ops\__init__.py", line 8, in <module>
+    from pandas.core.ops.array_ops import (
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1504, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1473, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1439, in _path_importer_cache
+  File "<frozen importlib._bootstrap_external>", line 1415, in _path_hooks
+  File "<frozen importlib._bootstrap_external>", line 1700, in path_hook_for_FileFinder
+KeyboardInterrupt
