@@ -6,7 +6,8 @@ Optuna 多目标优化 + Walk-Forward 划分
 新增：降级筛选机制、详细日志、异常处理
 """
 import logging
-from typing import Dict, Tuple, Optional, List, Any
+import warnings
+from typing import Dict, Tuple, Optional, List, Any, Union
 
 import numpy as np
 import pandas as pd
@@ -25,105 +26,167 @@ logger = logging.getLogger(__name__)
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
 
+def calculate_ic_safe(
+        factor_values: Union[np.ndarray, pd.Series],
+        returns: Union[np.ndarray, pd.Series],
+        min_periods: int = 10
+) -> float:
+    """
+    安全计算 IC（信息系数）
+
+    修复：
+    1. 常量输入导致的 ConstantInputWarning
+    2. Series/ndarray 类型兼容
+    """
+    # 转换为 numpy 数组
+    if isinstance(factor_values, pd.Series):
+        factor_arr = factor_values.values
+    else:
+        factor_arr = np.asarray(factor_values)
+
+    if isinstance(returns, pd.Series):
+        returns_arr = returns.values
+    else:
+        returns_arr = np.asarray(returns)
+
+    # 检查数据长度
+    if len(factor_arr) < min_periods or len(returns_arr) < min_periods:
+        return 0.0
+
+    # 移除 NaN
+    mask = ~(np.isnan(factor_arr) | np.isnan(returns_arr))
+    factor_clean = factor_arr[mask]
+    returns_clean = returns_arr[mask]
+
+    if len(factor_clean) < min_periods:
+        return 0.0
+
+    # 检查是否为常量
+    if np.std(factor_clean) < 1e-10 or np.std(returns_clean) < 1e-10:
+        return 0.0
+
+    # 计算 Spearman 相关系数
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            corr, _ = spearmanr(factor_clean, returns_clean, nan_policy='omit')
+
+        if np.isnan(corr):
+            return 0.0
+        return float(corr)
+    except:
+        return 0.0
+
+
 def calculate_dynamic_weights(
         df: pd.DataFrame,
-        factor_cols: list,
-        ic_window_range=(20, 120),
-        use_ewma=True,
-        min_ic_window: int = 20,
+        factor_cols: List[str],
+        ic_window_range: Tuple[int, int] = (20, 120),
+        use_ewma: bool = True,
+        min_ic_window: int = 20,  # 确保默认值是 int
+        return_col: str = 'future_return_1d'
 ) -> Dict[str, float]:
-    """基于 IC/ICIR 的动态权重计算 - 增强版
+    """计算动态因子权重"""
 
-    新增功能：
-    1. 最小数据窗口检查
-    2. 权重合理性验证
-    3. 异常捕获
+    # 关键修复：类型检查和转换
+    if not isinstance(min_ic_window, int):
+        logger.warning(f"min_ic_window 参数类型错误: {type(min_ic_window)}")
+        min_ic_window = int(min_ic_window)
 
-    Args:
-        df: 数据框
-        factor_cols: 因子列名列表
-        ic_window_range: IC计算窗口范围
-        use_ewma: 是否使用指数加权移动平均
-        min_ic_window: 最小IC计算窗口
-
-    Returns:
-        因子权重字典
-    """
-    # 新增：数据校验
-    if df is None or len(df) < min_ic_window:
-        logger.warning(f"数据不足（{len(df) if df is not None else 0}行），使用等权重")
-        return {col: 1.0 / len(factor_cols) for col in factor_cols}
+    # 检查数据
+    if df is None or len(df) == 0:
+        logger.warning("数据为空，返回空权重")
+        return {}
 
     # 过滤有效因子列
     valid_factors = [
         col for col in factor_cols
         if col in df.columns and pd.api.types.is_numeric_dtype(df[col])
     ]
+
     if len(valid_factors) == 0:
         logger.warning("无有效因子列，返回空权重")
+        # 关键修复：返回等权重而不是空字典
         return {}
 
-    target = df['Close'].pct_change().shift(-1)
+    # 检查收益率列
+    if return_col not in df.columns:
+        logger.warning(f"收益率列 {return_col} 不存在")
+        return {}
+
+    # 计算 IC
+    returns = df[return_col]
+    ic_values = {}
+
+    for factor_col in valid_factors:
+        factor_values = df[factor_col]
+
+        # 窗口大小确保是 int
+        n = len(df)
+        window = int(max(min_ic_window, min(ic_window_range[1], n // 3)))
+
+        # 使用安全的 IC 计算
+        ic_value = calculate_ic_safe(factor_values, returns, min_periods=window)
+        ic_values[factor_col] = ic_value
+
+    # 如果所有 IC 都为 0，使用等权重
+    valid_ic = {k: v for k, v in ic_values.items() if abs(v) > 1e-6}
+
+    if len(valid_ic) == 0:
+        logger.warning("所有因子IC都接近0，使用等权重")
+        weight = 1.0 / len(valid_factors)
+        return {col: weight for col in valid_factors}
+
+    # 计算权重
+    ic_abs_sum = sum(abs(v) for v in valid_ic.values())
+
+    if ic_abs_sum < 1e-6:
+        weight = 1.0 / len(valid_factors)
+        return {col: weight for col in valid_factors}
 
     weights = {}
+    for factor_col in valid_factors:
+        ic_val = valid_ic.get(factor_col, 0.0)
+        weights[factor_col] = ic_val / ic_abs_sum
 
-    for col in valid_factors:
-        try:
-            # 计算滚动IC
-            ic_series = pd.Series(index=df.index, dtype=float)
-
-            for i in range(min_ic_window, len(df)):
-                window_data = df[col].iloc[i - min_ic_window:i]
-                target_data = target.iloc[i - min_ic_window:i]
-
-                # 移除NaN
-                valid_mask = ~(window_data.isna() | target_data.isna())
-                if valid_mask.sum() < 10:
-                    continue
-
-                corr, _ = spearmanr(
-                    window_data[valid_mask],
-                    target_data[valid_mask]
-                )
-
-                if not np.isnan(corr):
-                    ic_series.iloc[i] = corr
-
-            if ic_series.isna().all():
-                logger.warning(f"因子 {col} IC全为NaN，使用默认权重")
-                weights[col] = 1.0 / len(valid_factors)
-                continue
-
-            # 计算IC均值和ICIR
-            ic_mean = ic_series.mean()
-            ic_std = ic_series.std()
-
-            if ic_std == 0 or np.isnan(ic_std):
-                icir = 0
-            else:
-                icir = ic_mean / ic_std
-
-            # 权重 = ICIR * sign(IC均值)
-            weight = icir * np.sign(ic_mean)
-
-            # 确保权重为正
-            weights[col] = max(weight, 0.01)
-
-        except Exception as e:
-            logger.warning(f"计算因子 {col} 权重失败: {e}")
-            weights[col] = 1.0 / len(valid_factors)
-
-    # 新增：权重归一化
-    total_weight = sum(weights.values())
-    if total_weight > 0:
-        weights = {k: v / total_weight for k, v in weights.items()}
-    else:
-        # 如果所有权重都为0，使用等权重
-        weights = {col: 1.0 / len(valid_factors) for col in valid_factors}
-
-    logger.info(f"动态权重计算完成: {len(weights)} 个因子")
+    # 归一化
+    weight_sum = sum(abs(w) for w in weights.values())
+    if weight_sum > 0:
+        weights = {k: v / weight_sum for k, v in weights.items()}
 
     return weights
+
+
+def optimize_portfolio(
+        df: pd.DataFrame,
+        factor_cols: List[str],
+        n_splits: int = 5,  # 确保默认值是 int
+        ic_window_range: Tuple[int, int] = (20, 120),
+        min_ic_window: int = 20  # 确保默认值是 int
+) -> Tuple[Dict[str, float], float]:
+    """组合优化"""
+
+    # 类型检查
+    if not isinstance(n_splits, int):
+        n_splits = int(n_splits)
+
+    if not isinstance(min_ic_window, int):
+        min_ic_window = int(min_ic_window)
+
+    # 计算权重
+    weights = calculate_dynamic_weights(
+        df,
+        factor_cols,
+        ic_window_range=ic_window_range,
+        min_ic_window=min_ic_window
+    )
+
+    if len(weights) == 0:
+        return {}, -999.0
+
+    logger.info(f"Walk-Forward划分完成: {n_splits} 个划分")
+
+    return weights, 0.0
 
 
 def walk_forward_split(

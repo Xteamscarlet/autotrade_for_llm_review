@@ -19,6 +19,7 @@ import numpy as np
 from config import get_settings, STOCK_CODES
 from data import check_and_clean_cache, save_pickle_cache, load_pickle_cache
 from data.indicators import calculate_orthogonal_factors_without_transformer
+from data.indicators_new import prepare_stock_data
 from data.loader_new import download_market_data, download_stocks_data
 # from data import (
 #     download_market_data, download_stocks_data,
@@ -206,10 +207,10 @@ def _process_single_stock(stock_code: str) -> tuple:
         if not is_valid:
             logger.warning(f"股票 {stock_code} 数据验证失败: {issues}")
             return stock_code, None, None, None, None, None, None
+        df = calculate_orthogonal_factors_without_transformer(df)
 
         # 计算因子权重
         factor_cols = [col for col in df.columns if col in TRADITIONAL_FACTOR_COLS]
-        df = calculate_orthogonal_factors_without_transformer(df)
         best_weights = calculate_dynamic_weights(df, factor_cols)
 
         # 参数优化
@@ -327,7 +328,9 @@ def main():
     if not stocks_data:
         print("错误: 无法获取个股数据")
         return
-
+    # ===== 关键修复：添加收益率计算 =====
+    logger.info("步骤1.5: 计算收益率...")
+    stocks_data = prepare_stock_data(stocks_data)
     print(f"stocks_data 类型: {type(stocks_data)}")
     print(f"stocks_data 长度: {len(stocks_data)}")
     print(f"stocks_data 键示例: {list(stocks_data.keys())[:3]}")

@@ -5,7 +5,7 @@
 新增：数据长度校验、NaN处理、异常捕获
 """
 import logging
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Dict
 
 import numpy as np
 import pandas as pd
@@ -422,3 +422,39 @@ def get_market_regime(market_data: Optional[pd.DataFrame], current_date) -> str:
     except Exception as e:
         logger.warning(f"市场状态判断失败: {e}")
         return 'neutral'
+
+
+# 在 run_backtest_no_transformer_new.py 中添加收益率计算
+
+def prepare_stock_data(stocks_data: Dict[str, pd.DataFrame]) -> Dict[str, pd.DataFrame]:
+    """
+    准备股票数据：计算因子和收益率
+    """
+    for stock_name, df in stocks_data.items():
+        # 2. 计算未来收益率（关键修复）
+        df['future_return_1d'] = calculate_future_return(df['Close'])
+
+        # 3. 更新数据
+        stocks_data[stock_name] = df
+
+    return stocks_data
+
+
+def calculate_future_return(close_prices: pd.Series, periods: int = 1) -> pd.Series:
+    """
+    计算未来收益率
+
+    Args:
+        close_prices: 收盘价序列
+        periods: 未来期数，默认1天
+
+    Returns:
+        未来收益率序列
+    """
+    # 使用对数收益率
+    future_return = np.log(close_prices.shift(-periods) / close_prices)
+
+    # 或者使用简单收益率（根据您的策略选择）
+    # future_return = close_prices.pct_change(periods).shift(-periods)
+
+    return future_return
