@@ -430,6 +430,24 @@ def main():
             json.dump(serializable_results, f, ensure_ascii=False, indent=2)
 
         logger.info(f"结果已保存到: {result_file}")
+        # 【修改处】：使用 passed_results 提取完整参数，而不是只保存 stats
+        backtest_results = []
+        # passed_results 包含 (code, strategy, stats, df, trades, splits, metadata)
+        for code, strat, stat, df, trades, splits, metadata in passed_strategies:
+            if strat is None: continue
+
+            backtest_results.append({
+                "code": code,
+                "name": strat.get('name', code),
+                "params": strat.get('params'),  # 保存优化后的参数
+                "weights": strat.get('weights'),  # 保存优化后的因子权重
+                "stats": strat.get('stats'),  # 保存回测表现
+            })
+
+        result_file = os.path.join(output_dir, "backtest_results.json")
+        with open(result_file, 'w', encoding='utf-8') as f:
+            json.dump(backtest_results, f, ensure_ascii=False, indent=2)
+        logger.info(f"结果已保存到: {result_file}")
     else:
         logger.error("无策略通过筛选")
 

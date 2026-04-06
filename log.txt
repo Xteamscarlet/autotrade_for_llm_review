@@ -1,202 +1,184 @@
-D:\anaconda3\python.exe "G:/pycharm/PyCharm 2025.2.0.1/plugins/python-ce/helpers/pydev/pydevd.py" --multiprocess --qt-support=auto --client 127.0.0.1 --port 14527 --file E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py
-Connected to: <socket.socket fd=608, family=2, type=1, proto=0, laddr=('127.0.0.1', 14528), raddr=('127.0.0.1', 14527)>.
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+D:\anaconda3\python.exe "G:/pycharm/PyCharm 2025.2.0.1/plugins/python-ce/helpers/pydev/pydevd.py" --multiprocess --qt-support=auto --client 127.0.0.1 --port 6840 --file E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py 
+Connected to: <socket.socket fd=652, family=2, type=1, proto=0, laddr=('127.0.0.1', 6841), raddr=('127.0.0.1', 6840)>.
 Connected to pydev debugger (build 252.23892.515)
-2026-04-06 11:13:07,513 - __main__ - INFO - ================================================================================
-2026-04-06 11:13:07,513 - __main__ - INFO - 开始回测（无Transformer版本）
-2026-04-06 11:13:07,513 - __main__ - INFO - ================================================================================
-2026-04-06 11:13:07,514 - __main__ - INFO - 步骤1: 准备数据...
-2026-04-06 11:13:07,534 - __main__ - INFO - 步骤1.5: 计算收益率...
-
+2026-04-06 22:52:01,134 - __main__ - INFO - ================================================================================
+2026-04-06 22:52:01,135 - __main__ - INFO - 开始回测（无Transformer版本）
+2026-04-06 22:52:01,135 - __main__ - INFO - ================================================================================
+2026-04-06 22:52:01,135 - __main__ - INFO - 步骤1: 准备数据...
 [2/3] 检查个股数据...
 使用缓存的股票数据...
+2026-04-06 22:52:01,155 - __main__ - INFO - 步骤1.5: 计算收益率...
 stocks_data 类型: <class 'dict'>
 stocks_data 长度: 20
 stocks_data 键示例: ['贵州茅台', '美的集团', '国轩高科']
-
 数据验证:
  类型: <class 'dict'>
  长度: 20
  前3个键: ['贵州茅台', '美的集团', '国轩高科']
-2026-04-06 11:13:07,549 - utils.stock_filter_new - INFO - 股票池过滤完成: 原始 20 只, 移除 0 只, 保留 20 只
-2026-04-06 11:13:07,549 - __main__ - INFO - 有效股票数量: 20
-2026-04-06 11:13:07,549 - __main__ - INFO - 步骤2: 执行回测...
-Connected to: <socket.socket fd=580, family=2, type=1, proto=0, laddr=('127.0.0.1', 14534), raddr=('127.0.0.1', 14527)>.
-Connected to: <socket.socket fd=612, family=2, type=1, proto=0, laddr=('127.0.0.1', 14536), raddr=('127.0.0.1', 14527)>.
-Connected to: <socket.socket fd=524, family=2, type=1, proto=0, laddr=('127.0.0.1', 14540), raddr=('127.0.0.1', 14527)>.
-Connected to: <socket.socket fd=588, family=2, type=1, proto=0, laddr=('127.0.0.1', 14546), raddr=('127.0.0.1', 14527)>.
-回测进度:   0%|          | 0/20 [00:00<?, ?it/s]2026-04-06 11:13:24,930 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:24,931 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:24,932 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 开始回测，数据长度: 476，因子数: 8
-2026-04-06 11:13:25,377 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:25,378 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:25,378 - backtest.engine_no_transformer_new - INFO - [美的集团] 开始回测，数据长度: 519，因子数: 8
-2026-04-06 11:13:25,845 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 信号统计: 买入=19, 卖出=18
-2026-04-06 11:13:25,847 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 回测完成: 总交易=18, 胜率=38.9%, 夏普=-1.31
-2026-04-06 11:13:25,847 - __mp_main__ - INFO - 股票 贵州茅台: 交易次数 18
-回测进度:   5%|▌         | 1/20 [00:05<01:41,  5.33s/it]2026-04-06 11:13:26,369 - backtest.engine_no_transformer_new - INFO - [美的集团] 信号统计: 买入=16, 卖出=15
-2026-04-06 11:13:26,374 - backtest.engine_no_transformer_new - INFO - [美的集团] 回测完成: 总交易=15, 胜率=53.3%, 夏普=-0.14
-2026-04-06 11:13:26,374 - __mp_main__ - INFO - 股票 美的集团: 交易次数 15
-回测进度:  10%|█         | 2/20 [00:05<00:45,  2.50s/it]2026-04-06 11:13:26,530 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:26,531 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:26,532 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 开始回测，数据长度: 643，因子数: 8
-2026-04-06 11:13:27,754 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 信号统计: 买入=44, 卖出=44
-2026-04-06 11:13:27,762 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 回测完成: 总交易=44, 胜率=50.0%, 夏普=-0.47
-2026-04-06 11:13:27,762 - __mp_main__ - INFO - 股票 隆基绿能: 交易次数 44
-2026-04-06 11:13:29,013 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:29,013 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:29,013 - backtest.engine_no_transformer_new - INFO - [国轩高科] 开始回测，数据长度: 899，因子数: 8
-2026-04-06 11:13:30,869 - backtest.engine_no_transformer_new - INFO - [国轩高科] 信号统计: 买入=36, 卖出=35
-2026-04-06 11:13:30,874 - backtest.engine_no_transformer_new - INFO - [国轩高科] 回测完成: 总交易=35, 胜率=40.0%, 夏普=0.68
-2026-04-06 11:13:30,874 - __mp_main__ - INFO - 股票 国轩高科: 交易次数 35
-回测进度:  15%|█▌        | 3/20 [00:10<00:58,  3.41s/it]2026-04-06 11:13:32,006 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:32,007 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:32,008 - backtest.engine_no_transformer_new - INFO - [赛力斯] 开始回测，数据长度: 471，因子数: 8
-2026-04-06 11:13:32,798 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:32,799 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:32,800 - backtest.engine_no_transformer_new - INFO - [比亚迪] 开始回测，数据长度: 714，因子数: 8
-2026-04-06 11:13:32,908 - backtest.engine_no_transformer_new - INFO - [赛力斯] 信号统计: 买入=8, 卖出=8
-2026-04-06 11:13:32,912 - backtest.engine_no_transformer_new - INFO - [赛力斯] 回测完成: 总交易=8, 胜率=62.5%, 夏普=1.18
-2026-04-06 11:13:32,912 - __mp_main__ - INFO - 股票 赛力斯: 交易次数 8
-回测进度:  25%|██▌       | 5/20 [00:12<00:30,  2.06s/it]2026-04-06 11:13:34,197 - backtest.engine_no_transformer_new - INFO - [比亚迪] 信号统计: 买入=38, 卖出=38
-2026-04-06 11:13:34,207 - backtest.engine_no_transformer_new - INFO - [比亚迪] 回测完成: 总交易=38, 胜率=44.7%, 夏普=0.16
-2026-04-06 11:13:34,207 - __mp_main__ - INFO - 股票 比亚迪: 交易次数 38
-回测进度:  30%|███       | 6/20 [00:13<00:25,  1.84s/it]2026-04-06 11:13:35,681 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:35,682 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:35,682 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 开始回测，数据长度: 848，因子数: 8
-2026-04-06 11:13:36,626 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:36,627 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:36,627 - backtest.engine_no_transformer_new - INFO - [海康威视] 开始回测，数据长度: 625，因子数: 8
-2026-04-06 11:13:37,332 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 信号统计: 买入=49, 卖出=48
-2026-04-06 11:13:37,340 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 回测完成: 总交易=48, 胜率=54.2%, 夏普=0.02
-2026-04-06 11:13:37,341 - __mp_main__ - INFO - 股票 科大讯飞: 交易次数 48
-回测进度:  35%|███▌      | 7/20 [00:16<00:28,  2.22s/it]2026-04-06 11:13:37,873 - backtest.engine_no_transformer_new - INFO - [海康威视] 信号统计: 买入=24, 卖出=24
-2026-04-06 11:13:37,879 - backtest.engine_no_transformer_new - INFO - [海康威视] 回测完成: 总交易=24, 胜率=54.2%, 夏普=-0.42
-2026-04-06 11:13:37,879 - __mp_main__ - INFO - 股票 海康威视: 交易次数 24
-回测进度:  40%|████      | 8/20 [00:17<00:20,  1.72s/it]2026-04-06 11:13:41,214 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:41,214 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:41,214 - backtest.engine_no_transformer_new - INFO - [中信证券] 开始回测，数据长度: 929，因子数: 8
-2026-04-06 11:13:41,289 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:41,290 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:41,291 - backtest.engine_no_transformer_new - INFO - [光迅科技] 开始回测，数据长度: 793，因子数: 8
-2026-04-06 11:13:42,839 - backtest.engine_no_transformer_new - INFO - [光迅科技] 信号统计: 买入=45, 卖出=44
-2026-04-06 11:13:42,846 - backtest.engine_no_transformer_new - INFO - [光迅科技] 回测完成: 总交易=44, 胜率=52.3%, 夏普=0.91
-2026-04-06 11:13:42,846 - __mp_main__ - INFO - 股票 光迅科技: 交易次数 44
-2026-04-06 11:13:43,030 - backtest.engine_no_transformer_new - INFO - [中信证券] 信号统计: 买入=37, 卖出=37
-2026-04-06 11:13:43,036 - backtest.engine_no_transformer_new - INFO - [中信证券] 回测完成: 总交易=37, 胜率=32.4%, 夏普=0.44
-2026-04-06 11:13:43,037 - __mp_main__ - INFO - 股票 中信证券: 交易次数 37
-回测进度:  45%|████▌     | 9/20 [00:22<00:30,  2.74s/it]2026-04-06 11:13:45,834 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:45,835 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:45,836 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 开始回测，数据长度: 935，因子数: 8
-2026-04-06 11:13:46,134 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:46,135 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:46,135 - backtest.engine_no_transformer_new - INFO - [山东黄金] 开始回测，数据长度: 924，因子数: 8
-2026-04-06 11:13:47,681 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 信号统计: 买入=37, 卖出=36
-2026-04-06 11:13:47,686 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 回测完成: 总交易=36, 胜率=55.6%, 夏普=0.28
-2026-04-06 11:13:47,686 - __mp_main__ - INFO - 股票 恒瑞医药: 交易次数 36
-回测进度:  55%|█████▌    | 11/20 [00:27<00:22,  2.55s/it]2026-04-06 11:13:47,947 - backtest.engine_no_transformer_new - INFO - [山东黄金] 信号统计: 买入=39, 卖出=38
-2026-04-06 11:13:47,953 - backtest.engine_no_transformer_new - INFO - [山东黄金] 回测完成: 总交易=38, 胜率=47.4%, 夏普=0.53
-2026-04-06 11:13:47,953 - __mp_main__ - INFO - 股票 山东黄金: 交易次数 38
-回测进度:  60%|██████    | 12/20 [00:27<00:15,  1.99s/it]2026-04-06 11:13:48,242 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:48,243 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:48,243 - backtest.engine_no_transformer_new - INFO - [长江电力] 开始回测，数据长度: 560，因子数: 8
-2026-04-06 11:13:49,335 - backtest.engine_no_transformer_new - INFO - [长江电力] 信号统计: 买入=18, 卖出=18
-2026-04-06 11:13:49,340 - backtest.engine_no_transformer_new - INFO - [长江电力] 回测完成: 总交易=18, 胜率=55.6%, 夏普=0.65
-2026-04-06 11:13:49,340 - __mp_main__ - INFO - 股票 长江电力: 交易次数 18
-2026-04-06 11:13:50,526 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:50,527 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:50,527 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 开始回测，数据长度: 859，因子数: 8
-2026-04-06 11:13:52,229 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 信号统计: 买入=34, 卖出=33
-2026-04-06 11:13:52,239 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 回测完成: 总交易=33, 胜率=54.5%, 夏普=1.23
-2026-04-06 11:13:52,239 - __mp_main__ - INFO - 股票 紫金矿业: 交易次数 33
-回测进度:  65%|██████▌   | 13/20 [00:31<00:18,  2.59s/it]2026-04-06 11:13:55,040 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:55,042 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:55,043 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 开始回测，数据长度: 799，因子数: 8
-2026-04-06 11:13:56,141 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
-2026-04-06 11:13:56,143 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:56,143 - backtest.engine_no_transformer_new - INFO - [东山精密] 开始回测，数据长度: 734，因子数: 8
-2026-04-06 11:13:56,736 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 信号统计: 买入=34, 卖出=34
-2026-04-06 11:13:56,742 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 回测完成: 总交易=34, 胜率=50.0%, 夏普=0.78
-2026-04-06 11:13:56,742 - __mp_main__ - INFO - 股票 歌尔股份: 交易次数 34
-2026-04-06 11:13:57,602 - backtest.engine_no_transformer_new - INFO - [东山精密] 信号统计: 买入=47, 卖出=46
-2026-04-06 11:13:57,609 - backtest.engine_no_transformer_new - INFO - [东山精密] 回测完成: 总交易=46, 胜率=56.5%, 夏普=1.05
-2026-04-06 11:13:57,610 - __mp_main__ - INFO - 股票 东山精密: 交易次数 46
-2026-04-06 11:13:59,261 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:13:59,262 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:13:59,263 - backtest.engine_no_transformer_new - INFO - [东方电气] 开始回测，数据长度: 1296，因子数: 8
-2026-04-06 11:14:01,842 - backtest.engine_no_transformer_new - INFO - [东方电气] 信号统计: 买入=59, 卖出=59
-2026-04-06 11:14:01,851 - backtest.engine_no_transformer_new - INFO - [东方电气] 回测完成: 总交易=59, 胜率=50.8%, 夏普=0.62
-2026-04-06 11:14:01,851 - __mp_main__ - INFO - 股票 东方电气: 交易次数 59
-回测进度:  75%|███████▌  | 15/20 [00:41<00:17,  3.53s/it]2026-04-06 11:14:03,271 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:14:03,272 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:14:03,272 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 开始回测，数据长度: 1246，因子数: 8
-2026-04-06 11:14:04,621 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:14:04,623 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:14:04,623 - backtest.engine_no_transformer_new - INFO - [北新建材] 开始回测，数据长度: 804，因子数: 8
-2026-04-06 11:14:04,931 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 11:14:04,931 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 11:14:04,931 - backtest.engine_no_transformer_new - INFO - [北大荒] 开始回测，数据长度: 932，因子数: 8
-2026-04-06 11:14:05,716 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 信号统计: 买入=63, 卖出=63
-2026-04-06 11:14:05,725 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 回测完成: 总交易=63, 胜率=38.1%, 夏普=-0.17
-2026-04-06 11:14:05,726 - __mp_main__ - INFO - 股票 中航沈飞: 交易次数 63
-回测进度:  90%|█████████ | 18/20 [00:45<00:04,  2.46s/it]2026-04-06 11:14:06,193 - backtest.engine_no_transformer_new - INFO - [北新建材] 信号统计: 买入=41, 卖出=41
-2026-04-06 11:14:06,199 - backtest.engine_no_transformer_new - INFO - [北新建材] 回测完成: 总交易=41, 胜率=43.9%, 夏普=0.31
-2026-04-06 11:14:06,200 - __mp_main__ - INFO - 股票 北新建材: 交易次数 41
-2026-04-06 11:14:06,709 - backtest.engine_no_transformer_new - INFO - [北大荒] 信号统计: 买入=40, 卖出=40
-2026-04-06 11:14:06,716 - backtest.engine_no_transformer_new - INFO - [北大荒] 回测完成: 总交易=40, 胜率=45.0%, 夏普=-0.45
-2026-04-06 11:14:06,717 - __mp_main__ - INFO - 股票 北大荒: 交易次数 40
-回测进度: 100%|██████████| 20/20 [00:46<00:00,  2.31s/it]
-2026-04-06 11:14:06,721 - __main__ - INFO - 步骤3: 统计结果...
-2026-04-06 11:14:06,721 - __main__ - INFO - 回测成功: 20/20
-2026-04-06 11:14:06,721 - __main__ - INFO - 步骤4: 筛选策略...
-2026-04-06 11:14:06,721 - __main__ - INFO - 策略 贵州茅台: 丢弃 - 夏普比率 -1.3060 < 0.0, 最大回撤 -30.20% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 美的集团: 丢弃 - 夏普比率 -0.1381 < 0.0
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 国轩高科: 丢弃 - 最大回撤 -28.05% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 隆基绿能: 丢弃 - 夏普比率 -0.4723 < 0.0, 最大回撤 -38.90% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 赛力斯: 通过筛选
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 比亚迪: 丢弃 - 最大回撤 -30.10% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 科大讯飞: 丢弃 - 最大回撤 -39.62% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 海康威视: 丢弃 - 夏普比率 -0.4244 < 0.0, 最大回撤 -21.59% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 中信证券: 丢弃 - 最大回撤 -30.06% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 光迅科技: 丢弃 - 最大回撤 -36.18% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 恒瑞医药: 通过筛选
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 山东黄金: 丢弃 - 最大回撤 -23.35% < -20.0%
-2026-04-06 11:14:06,722 - __main__ - INFO - 策略 紫金矿业: 通过筛选
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 长江电力: 通过筛选
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 东方电气: 丢弃 - 最大回撤 -38.52% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 歌尔股份: 丢弃 - 最大回撤 -23.56% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 东山精密: 丢弃 - 最大回撤 -32.38% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 中航沈飞: 丢弃 - 夏普比率 -0.1712 < 0.0, 最大回撤 -29.47% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 北大荒: 丢弃 - 夏普比率 -0.4545 < 0.0, 最大回撤 -28.53% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 策略 北新建材: 丢弃 - 最大回撤 -34.06% < -20.0%
-2026-04-06 11:14:06,723 - __main__ - INFO - 步骤5: 生成报告...
-2026-04-06 11:14:06,724 - __main__ - INFO - 最终保留 4 个策略
-2026-04-06 11:14:06,728 - __main__ - INFO - 结果已保存到: ./stock_cache/no_transformer_results\backtest_results.json
-
-================================================================================
-开始生成可视化图表...
-================================================================================
-E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-2026-04-06 11:14:54,117 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\赛力斯_赛力斯_backtest_no_transformer.png
- ✓ 赛力斯 图表已保存
-E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-2026-04-06 11:15:02,595 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\恒瑞医药_恒瑞医药_backtest_no_transformer.png
- ✓ 恒瑞医药 图表已保存
-E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-2026-04-06 11:15:10,570 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\紫金矿业_紫金矿业_backtest_no_transformer.png
- ✓ 紫金矿业 图表已保存
-E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-2026-04-06 11:15:15,840 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\长江电力_长江电力_backtest_no_transformer.png
-2026-04-06 11:15:15,840 - __main__ - INFO - ================================================================================
-2026-04-06 11:15:15,840 - __main__ - INFO - 回测完成
-2026-04-06 11:15:15,840 - __main__ - INFO - ================================================================================
- ✓ 长江电力 图表已保存
-
-================================================================================
-所有可视化图表生成完成！目录: ./stock_cache/no_transformer_results\backtest_charts
-================================================================================
-
-Process finished with exit code 0
+2026-04-06 22:52:01,171 - utils.stock_filter_new - INFO - 股票池过滤完成: 原始 20 只, 移除 0 只, 保留 20 只
+2026-04-06 22:52:01,171 - __main__ - INFO - 有效股票数量: 20
+2026-04-06 22:52:01,171 - __main__ - INFO - 步骤2: 执行回测...
+Connected to: <socket.socket fd=576, family=2, type=1, proto=0, laddr=('127.0.0.1', 6847), raddr=('127.0.0.1', 6840)>.
+Connected to: <socket.socket fd=556, family=2, type=1, proto=0, laddr=('127.0.0.1', 6851), raddr=('127.0.0.1', 6840)>.
+Connected to: <socket.socket fd=580, family=2, type=1, proto=0, laddr=('127.0.0.1', 6853), raddr=('127.0.0.1', 6840)>.
+Connected to: <socket.socket fd=576, family=2, type=1, proto=0, laddr=('127.0.0.1', 6858), raddr=('127.0.0.1', 6840)>.
+回测进度:   0%|          | 0/20 [00:00<?, ?it/s]2026-04-06 22:52:19,425 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:19,426 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:19,427 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 开始回测，数据长度: 476，因子数: 8
+2026-04-06 22:52:19,774 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:19,775 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:19,776 - backtest.engine_no_transformer_new - INFO - [美的集团] 开始回测，数据长度: 519，因子数: 8
+2026-04-06 22:52:20,490 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 信号统计: 买入=19, 卖出=18
+2026-04-06 22:52:20,507 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 回测完成: 总交易=18, 胜率=38.9%, 夏普=-1.31
+2026-04-06 22:52:20,507 - __mp_main__ - INFO - 股票 贵州茅台: 交易次数 18
+回测进度:   5%|▌         | 1/20 [00:05<01:47,  5.68s/it]2026-04-06 22:52:20,952 - backtest.engine_no_transformer_new - INFO - [美的集团] 信号统计: 买入=16, 卖出=15
+2026-04-06 22:52:20,957 - backtest.engine_no_transformer_new - INFO - [美的集团] 回测完成: 总交易=15, 胜率=53.3%, 夏普=-0.14
+2026-04-06 22:52:20,957 - __mp_main__ - INFO - 股票 美的集团: 交易次数 15
+回测进度:  10%|█         | 2/20 [00:06<00:46,  2.60s/it]2026-04-06 22:52:21,251 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:21,252 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:21,252 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 开始回测，数据长度: 643，因子数: 8
+2026-04-06 22:52:22,708 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 信号统计: 买入=44, 卖出=44
+2026-04-06 22:52:22,718 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 回测完成: 总交易=44, 胜率=50.0%, 夏普=-0.47
+2026-04-06 22:52:22,719 - __mp_main__ - INFO - 股票 隆基绿能: 交易次数 44
+2026-04-06 22:52:24,073 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:24,074 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:24,075 - backtest.engine_no_transformer_new - INFO - [国轩高科] 开始回测，数据长度: 899，因子数: 8
+2026-04-06 22:52:25,872 - backtest.engine_no_transformer_new - INFO - [国轩高科] 信号统计: 买入=36, 卖出=35
+2026-04-06 22:52:25,884 - backtest.engine_no_transformer_new - INFO - [国轩高科] 回测完成: 总交易=35, 胜率=40.0%, 夏普=0.68
+2026-04-06 22:52:25,884 - __mp_main__ - INFO - 股票 国轩高科: 交易次数 35
+回测进度:  15%|█▌        | 3/20 [00:11<01:02,  3.66s/it]2026-04-06 22:52:27,043 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:27,044 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:27,044 - backtest.engine_no_transformer_new - INFO - [赛力斯] 开始回测，数据长度: 471，因子数: 8
+2026-04-06 22:52:27,720 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:27,721 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:27,721 - backtest.engine_no_transformer_new - INFO - [比亚迪] 开始回测，数据长度: 714，因子数: 8
+2026-04-06 22:52:27,966 - backtest.engine_no_transformer_new - INFO - [赛力斯] 信号统计: 买入=8, 卖出=8
+2026-04-06 22:52:27,970 - backtest.engine_no_transformer_new - INFO - [赛力斯] 回测完成: 总交易=8, 胜率=62.5%, 夏普=1.18
+2026-04-06 22:52:27,970 - __mp_main__ - INFO - 股票 赛力斯: 交易次数 8
+回测进度:  25%|██▌       | 5/20 [00:13<00:32,  2.18s/it]2026-04-06 22:52:29,278 - backtest.engine_no_transformer_new - INFO - [比亚迪] 信号统计: 买入=38, 卖出=38
+2026-04-06 22:52:29,285 - backtest.engine_no_transformer_new - INFO - [比亚迪] 回测完成: 总交易=38, 胜率=44.7%, 夏普=0.16
+2026-04-06 22:52:29,285 - __mp_main__ - INFO - 股票 比亚迪: 交易次数 38
+回测进度:  30%|███       | 6/20 [00:14<00:27,  1.93s/it]2026-04-06 22:52:30,984 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:30,986 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:30,986 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 开始回测，数据长度: 848，因子数: 8
+2026-04-06 22:52:31,989 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:31,990 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:31,990 - backtest.engine_no_transformer_new - INFO - [海康威视] 开始回测，数据长度: 625，因子数: 8
+2026-04-06 22:52:32,976 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 信号统计: 买入=49, 卖出=48
+2026-04-06 22:52:32,985 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 回测完成: 总交易=48, 胜率=54.2%, 夏普=0.02
+2026-04-06 22:52:32,986 - __mp_main__ - INFO - 股票 科大讯飞: 交易次数 48
+回测进度:  35%|███▌      | 7/20 [00:18<00:31,  2.45s/it]2026-04-06 22:52:33,395 - backtest.engine_no_transformer_new - INFO - [海康威视] 信号统计: 买入=24, 卖出=24
+2026-04-06 22:52:33,402 - backtest.engine_no_transformer_new - INFO - [海康威视] 回测完成: 总交易=24, 胜率=54.2%, 夏普=-0.42
+2026-04-06 22:52:33,402 - __mp_main__ - INFO - 股票 海康威视: 交易次数 24
+回测进度:  40%|████      | 8/20 [00:18<00:22,  1.85s/it]2026-04-06 22:52:36,990 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:36,991 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:36,992 - backtest.engine_no_transformer_new - INFO - [光迅科技] 开始回测，数据长度: 793，因子数: 8
+2026-04-06 22:52:37,051 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:37,052 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:37,052 - backtest.engine_no_transformer_new - INFO - [中信证券] 开始回测，数据长度: 929，因子数: 8
+2026-04-06 22:52:38,703 - backtest.engine_no_transformer_new - INFO - [光迅科技] 信号统计: 买入=45, 卖出=44
+2026-04-06 22:52:38,711 - backtest.engine_no_transformer_new - INFO - [光迅科技] 回测完成: 总交易=44, 胜率=52.3%, 夏普=0.91
+2026-04-06 22:52:38,711 - __mp_main__ - INFO - 股票 光迅科技: 交易次数 44
+2026-04-06 22:52:39,070 - backtest.engine_no_transformer_new - INFO - [中信证券] 信号统计: 买入=37, 卖出=37
+2026-04-06 22:52:39,081 - backtest.engine_no_transformer_new - INFO - [中信证券] 回测完成: 总交易=37, 胜率=32.4%, 夏普=0.44
+2026-04-06 22:52:39,081 - __mp_main__ - INFO - 股票 中信证券: 交易次数 37
+回测进度:  45%|████▌     | 9/20 [00:24<00:32,  2.98s/it]2026-04-06 22:52:41,860 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:41,861 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:41,861 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 开始回测，数据长度: 935，因子数: 8
+2026-04-06 22:52:42,029 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:42,030 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:42,030 - backtest.engine_no_transformer_new - INFO - [山东黄金] 开始回测，数据长度: 924，因子数: 8
+2026-04-06 22:52:43,932 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 信号统计: 买入=37, 卖出=36
+2026-04-06 22:52:43,938 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 回测完成: 总交易=36, 胜率=55.6%, 夏普=0.28
+2026-04-06 22:52:43,938 - __mp_main__ - INFO - 股票 恒瑞医药: 交易次数 36
+回测进度:  55%|█████▌    | 11/20 [00:29<00:24,  2.73s/it]2026-04-06 22:52:44,075 - backtest.engine_no_transformer_new - INFO - [山东黄金] 信号统计: 买入=39, 卖出=38
+2026-04-06 22:52:44,082 - backtest.engine_no_transformer_new - INFO - [山东黄金] 回测完成: 总交易=38, 胜率=47.4%, 夏普=0.53
+2026-04-06 22:52:44,083 - __mp_main__ - INFO - 股票 山东黄金: 交易次数 38
+回测进度:  60%|██████    | 12/20 [00:29<00:16,  2.09s/it]2026-04-06 22:52:44,500 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:44,501 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:44,501 - backtest.engine_no_transformer_new - INFO - [长江电力] 开始回测，数据长度: 560，因子数: 8
+2026-04-06 22:52:45,654 - backtest.engine_no_transformer_new - INFO - [长江电力] 信号统计: 买入=18, 卖出=18
+2026-04-06 22:52:45,662 - backtest.engine_no_transformer_new - INFO - [长江电力] 回测完成: 总交易=18, 胜率=55.6%, 夏普=0.65
+2026-04-06 22:52:45,662 - __mp_main__ - INFO - 股票 长江电力: 交易次数 18
+2026-04-06 22:52:46,869 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:46,871 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:46,871 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 开始回测，数据长度: 859，因子数: 8
+2026-04-06 22:52:48,769 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 信号统计: 买入=34, 卖出=33
+2026-04-06 22:52:48,777 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 回测完成: 总交易=33, 胜率=54.5%, 夏普=1.23
+2026-04-06 22:52:48,777 - __mp_main__ - INFO - 股票 紫金矿业: 交易次数 33
+回测进度:  65%|██████▌   | 13/20 [00:33<00:19,  2.77s/it]2026-04-06 22:52:51,727 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:51,728 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:51,729 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 开始回测，数据长度: 799，因子数: 8
+2026-04-06 22:52:52,822 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=0.0000
+2026-04-06 22:52:52,823 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:52,824 - backtest.engine_no_transformer_new - INFO - [东山精密] 开始回测，数据长度: 734，因子数: 8
+2026-04-06 22:52:53,452 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 信号统计: 买入=34, 卖出=34
+2026-04-06 22:52:53,459 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 回测完成: 总交易=34, 胜率=50.0%, 夏普=0.78
+2026-04-06 22:52:53,459 - __mp_main__ - INFO - 股票 歌尔股份: 交易次数 34
+2026-04-06 22:52:54,435 - backtest.engine_no_transformer_new - INFO - [东山精密] 信号统计: 买入=47, 卖出=46
+2026-04-06 22:52:54,443 - backtest.engine_no_transformer_new - INFO - [东山精密] 回测完成: 总交易=46, 胜率=56.5%, 夏普=1.05
+2026-04-06 22:52:54,443 - __mp_main__ - INFO - 股票 东山精密: 交易次数 46
+2026-04-06 22:52:56,183 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:52:56,184 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:52:56,185 - backtest.engine_no_transformer_new - INFO - [东方电气] 开始回测，数据长度: 1296，因子数: 8
+2026-04-06 22:52:59,709 - backtest.engine_no_transformer_new - INFO - [东方电气] 信号统计: 买入=59, 卖出=59
+2026-04-06 22:52:59,719 - backtest.engine_no_transformer_new - INFO - [东方电气] 回测完成: 总交易=59, 胜率=50.8%, 夏普=0.62
+2026-04-06 22:52:59,719 - __mp_main__ - INFO - 股票 东方电气: 交易次数 59
+回测进度:  75%|███████▌  | 15/20 [00:44<00:19,  3.92s/it]2026-04-06 22:53:01,089 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:53:01,091 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:53:01,091 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 开始回测，数据长度: 1246，因子数: 8
+2026-04-06 22:53:02,796 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:53:02,796 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:53:02,796 - backtest.engine_no_transformer_new - INFO - [北新建材] 开始回测，数据长度: 804，因子数: 8
+2026-04-06 22:53:02,924 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 22:53:02,925 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 22:53:02,925 - backtest.engine_no_transformer_new - INFO - [北大荒] 开始回测，数据长度: 932，因子数: 8
+2026-04-06 22:53:03,753 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 信号统计: 买入=63, 卖出=63
+2026-04-06 22:53:03,763 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 回测完成: 总交易=63, 胜率=38.1%, 夏普=-0.17
+2026-04-06 22:53:03,763 - __mp_main__ - INFO - 股票 中航沈飞: 交易次数 63
+回测进度:  90%|█████████ | 18/20 [00:48<00:05,  2.69s/it]2026-04-06 22:53:04,517 - backtest.engine_no_transformer_new - INFO - [北新建材] 信号统计: 买入=41, 卖出=41
+2026-04-06 22:53:04,524 - backtest.engine_no_transformer_new - INFO - [北新建材] 回测完成: 总交易=41, 胜率=43.9%, 夏普=0.31
+2026-04-06 22:53:04,525 - __mp_main__ - INFO - 股票 北新建材: 交易次数 41
+2026-04-06 22:53:04,853 - backtest.engine_no_transformer_new - INFO - [北大荒] 信号统计: 买入=40, 卖出=40
+2026-04-06 22:53:04,860 - backtest.engine_no_transformer_new - INFO - [北大荒] 回测完成: 总交易=40, 胜率=45.0%, 夏普=-0.45
+2026-04-06 22:53:04,860 - __mp_main__ - INFO - 股票 北大荒: 交易次数 40
+回测进度: 100%|██████████| 20/20 [00:50<00:00,  2.50s/it]
+2026-04-06 22:53:04,865 - __main__ - INFO - 步骤3: 统计结果...
+2026-04-06 22:53:04,865 - __main__ - INFO - 回测成功: 20/20
+2026-04-06 22:53:04,865 - __main__ - INFO - 步骤4: 筛选策略...
+2026-04-06 22:53:04,865 - __main__ - INFO - 策略 贵州茅台: 丢弃 - 夏普比率 -1.3060 < 0.0, 最大回撤 -30.20% < -20.0%
+2026-04-06 22:53:04,865 - __main__ - INFO - 策略 美的集团: 丢弃 - 夏普比率 -0.1381 < 0.0
+2026-04-06 22:53:04,865 - __main__ - INFO - 策略 国轩高科: 丢弃 - 最大回撤 -28.05% < -20.0%
+2026-04-06 22:53:04,865 - __main__ - INFO - 策略 隆基绿能: 丢弃 - 夏普比率 -0.4723 < 0.0, 最大回撤 -38.90% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 赛力斯: 通过筛选
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 比亚迪: 丢弃 - 最大回撤 -30.10% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 科大讯飞: 丢弃 - 最大回撤 -39.62% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 海康威视: 丢弃 - 夏普比率 -0.4244 < 0.0, 最大回撤 -21.59% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 中信证券: 丢弃 - 最大回撤 -30.06% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 光迅科技: 丢弃 - 最大回撤 -36.18% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 恒瑞医药: 通过筛选
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 山东黄金: 丢弃 - 最大回撤 -23.35% < -20.0%
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 紫金矿业: 通过筛选
+2026-04-06 22:53:04,866 - __main__ - INFO - 策略 长江电力: 通过筛选
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 东方电气: 丢弃 - 最大回撤 -38.52% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 歌尔股份: 丢弃 - 最大回撤 -23.56% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 东山精密: 丢弃 - 最大回撤 -32.38% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 中航沈飞: 丢弃 - 夏普比率 -0.1712 < 0.0, 最大回撤 -29.47% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 北大荒: 丢弃 - 夏普比率 -0.4545 < 0.0, 最大回撤 -28.53% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 策略 北新建材: 丢弃 - 最大回撤 -34.06% < -20.0%
+2026-04-06 22:53:04,867 - __main__ - INFO - 步骤5: 生成报告...
+2026-04-06 22:53:04,867 - __main__ - INFO - 最终保留 4 个策略
+2026-04-06 22:53:04,871 - __main__ - INFO - 结果已保存到: ./stock_cache/no_transformer_results\backtest_results.json
+Traceback (most recent call last):
+  File "G:\pycharm\PyCharm 2025.2.0.1\plugins\python-ce\helpers\pydev\pydevd.py", line 1648, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\pycharm\PyCharm 2025.2.0.1\plugins\python-ce\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 506, in <module>
+    main()
+  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 436, in main
+    for code, strat, stat, df, trades, splits, metadata in passed_strategies:
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 7, got 4)

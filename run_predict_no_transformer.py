@@ -202,7 +202,9 @@ def calculate_factor_score(df: pd.DataFrame) -> float:
     return round(total_score, 4)
 
 
-def predict_single_stock_no_transformer(code: str, name: str = "") -> Optional[Dict]:
+def predict_single_stock_no_transformer(code: str, name: str = "",
+                                        strategy_config: Optional[Dict] = None  # 新增参数：策略配置
+                                        ) -> Optional[Dict]:
     """预测单只股票（无Transformer版本）
 
     Args:
@@ -248,8 +250,17 @@ def predict_single_stock_no_transformer(code: str, name: str = "") -> Optional[D
             return None
 
         # 计算综合得分
-        score = calculate_factor_score(temp)
-
+        # 【修改处】：根据是否传入策略配置，选择不同的计算方式
+        if strategy_config and 'weights' in strategy_config:
+            # 使用回测优化后的权重进行加权得分计算
+            # 注意：这里需要实现一个支持自定义权重的得分函数
+            # 假设 calculate_factor_score 暂时不支持自定义权重，
+            # 实际项目中应重构 calculate_factor_score 使其接受 weights 参数。
+            # 这里演示一个简单的替换逻辑：
+            score = calculate_custom_factor_score(temp, strategy_config['weights'])
+        else:
+            # 默认逻辑
+            score = calculate_factor_score(temp)
         # 计算预测收益（基于ATR）
         last = temp.iloc[-1]
         atr = last['ATR'] if not pd.isna(last['ATR']) else last['Close'] * 0.02
@@ -298,17 +309,24 @@ def predict_stocks_no_transformer(target_codes: List[str], code_to_name: Dict[st
     """
     predictions = []
     code_to_name = code_to_name or {}
-
+    # 【新增】：加载回测优化后的策略
+    strategy_map = {}
+    strategy_file = "./stock_cache/no_transformer_results/backtest_results.json"
+    if os.path.exists(strategy_file):
+        with open(strategy_file, 'r', encoding='utf-8') as f:
+            strategies = json.load(f)
+            # 构建代码到策略的映射
+            strategy_map = {s['code']: s for s in strategies}
+        logger.info(f"成功加载 {len(strategy_map)} 个优化策略")
+    else:
+        logger.warning("未找到回测策略文件，使用默认参数预测")
     for i, code in enumerate(tqdm(target_codes, desc="预测进度")):
         try:
-            time.sleep(0.5)  # 避免请求过快
-
-            if i > 0 and i % 100 == 0:
-                logger.warning('每100只暂停30秒')
-                time.sleep(30)
+            time.sleep(15)  # 避免请求过快
 
             name = code_to_name.get(code, "")
-            result = predict_single_stock_no_transformer(code, name)
+            config = strategy_map.get(code, {})
+            result = predict_single_stock_no_transformer(code, name, strategy_config=config)
 
             if result:
                 predictions.append(result)
