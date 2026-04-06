@@ -97,9 +97,9 @@ def _load_scalers() -> tuple:
 def _prepare_features(df: pd.DataFrame) -> pd.DataFrame:
     """从原始 OHLCV 数据计算所有特征"""
     temp = df.copy()
-    temp['MA5'] = safe_sma(temp['Close'], timeperiod=5)
-    temp['MA10'] = safe_sma(temp['Close'], timeperiod=10)
-    temp['MA20'] = safe_sma(temp['Close'], timeperiod=20)
+    temp['MA5'] = safe_sma(temp['Close'], period=5)
+    temp['MA10'] = safe_sma(temp['Close'], period=10)
+    temp['MA20'] = safe_sma(temp['Close'], period=20)
     temp['MACD'], temp['MACD_Signal'], temp['MACD_Hist'] = ta.MACD(temp['Close'], fastperiod=12, slowperiod=26, signalperiod=9)
     temp['K'], temp['D'] = ta.STOCH(temp['High'], temp['Low'], temp['Close'], fastk_period=9, slowk_period=3, slowd_period=3)
     temp['J'] = 3 * temp['K'] - 2 * temp['D']

@@ -45,9 +45,9 @@ def calculate_traditional_factors(df: pd.DataFrame) -> pd.DataFrame:
     temp = df.copy()
 
     # 均线
-    temp['MA5'] = safe_sma(temp['Close'], timeperiod=5)
-    temp['MA10'] = safe_sma(temp['Close'], timeperiod=10)
-    temp['MA20'] = safe_sma(temp['Close'], timeperiod=20)
+    temp['MA5'] = safe_sma(temp['Close'], period=5)
+    temp['MA10'] = safe_sma(temp['Close'], period=10)
+    temp['MA20'] = safe_sma(temp['Close'], period=20)
 
     # MACD
     temp['MACD'], temp['MACD_Signal'], temp['MACD_Hist'] = ta.MACD(

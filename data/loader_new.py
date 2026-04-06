@@ -15,6 +15,7 @@ import numpy as np
 from pandas import DataFrame
 
 from config import get_settings
+from data.cache import _clean_stock_data
 from exceptions import DataFetchError, DataValidationError
 
 logger = logging.getLogger(__name__)
@@ -323,6 +324,9 @@ def download_stocks_data(
             code = futures[future]
             try:
                 df = future.result()
+                # ===== 加上这一行 =====
+                df = _clean_stock_data(df)
+                # =======================
                 if df is not None and len(df) > 0:
                     results[code] = df
                 else:

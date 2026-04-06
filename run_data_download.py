@@ -74,9 +74,9 @@ def process_single_batch(batch_codes: list, start_date: str, end_date: str) -> p
             temp['Code'] = code
 
             # 技术指标
-            temp['MA5'] = safe_sma(temp['Close'], timeperiod=5)
-            temp['MA10'] = safe_sma(temp['Close'], timeperiod=10)
-            temp['MA20'] = safe_sma(temp['Close'], timeperiod=20)
+            temp['MA5'] = safe_sma(temp['Close'], period=5)
+            temp['MA10'] = safe_sma(temp['Close'], period=10)
+            temp['MA20'] = safe_sma(temp['Close'], period=20)
             temp['MACD'], temp['MACD_Signal'], temp['MACD_Hist'] = ta.MACD(
                 temp['Close'], fastperiod=12, slowperiod=26, signalperiod=9)
             temp['K'], temp['D'] = ta.STOCH(

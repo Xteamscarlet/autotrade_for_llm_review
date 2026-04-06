@@ -30,9 +30,9 @@ def calculate_all_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     # 均线
-    df['MA5'] = safe_sma(df['Close'], timeperiod=5)
-    df['MA10'] = safe_sma(df['Close'], timeperiod=10)
-    df['MA20'] = safe_sma(df['Close'], timeperiod=20)
+    df['MA5'] = safe_sma(df['Close'], period=5)
+    df['MA10'] = safe_sma(df['Close'], period=10)
+    df['MA20'] = safe_sma(df['Close'], period=20)
 
     # MACD
     df['MACD'], df['MACD_Signal'], df['MACD_Hist'] = ta.MACD(

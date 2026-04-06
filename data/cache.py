@@ -7,7 +7,7 @@ import os
 import time
 import pickle
 import logging
-from datetime import datetime, date as date_type
+from datetime import datetime, date as date_type, timedelta
 from typing import Optional, Any, Tuple
 
 import pandas as pd
@@ -30,51 +30,58 @@ def get_trading_day_status() -> Tuple[bool, str]:
 
 
 def check_and_clean_cache(cache_file: str) -> bool:
-    """检查缓存有效性，过期则删除
-
-    Args:
-        cache_file: 缓存文件路径
-
-    Returns:
-        True 表示缓存有效，False 表示需要重新下载
-    """
-    if not os.path.exists(cache_file):
-        return False
-
+    """检查缓存文件是否有效，返回 True 表示缓存可用"""
     try:
+        if not os.path.exists(cache_file):
+            return False
+
         with open(cache_file, 'rb') as f:
             data = pickle.load(f)
 
-        last_date = data.get('Date')
-        if last_date is None:
+        # ============ 关键修改：兼容 dict[str, DataFrame] 结构 ============
+        if isinstance(data, dict):
+            # 情况1：错误结构 {"stocks_data": {...}, "last_date": ...}
+            first_key = list(data.keys())[0]
+            if first_key in ['stocks_data', 'last_date', 'Date']:
+                os.remove(cache_file)
+                logger.warning(f"检测到错误的缓存结构，已删除: {cache_file}")
+                return False
+
+            # 情况2：正确结构 dict[str, DataFrame]，取第一个 DataFrame 的最后日期
+            first_value = data[first_key]
+            if isinstance(first_value, pd.DataFrame):
+                last_date = first_value.index[-1]
+            else:
+                os.remove(cache_file)
+                logger.warning(f"缓存值类型异常: {type(first_value)}，已删除: {cache_file}")
+                return False
+        elif isinstance(data, pd.DataFrame):
+            # 情况3：单个 DataFrame（大盘数据）
+            last_date = data.index[-1]
+        else:
             os.remove(cache_file)
+            logger.warning(f"未知缓存类型: {type(data)}，已删除: {cache_file}")
             return False
-
-        last_date = _to_date(last_date)
-        today = datetime.now().date()
-
-        is_trading, _ = get_trading_day_status()
-        days_diff = (today - last_date).days
-
-        need_update = False
-        if is_trading and days_diff > 1:
-            need_update = True
-        elif not is_trading and days_diff > 3:
-            need_update = True
-
-        if need_update:
-            print(f"缓存过期: {cache_file} (最后日期: {last_date})")
-            os.remove(cache_file)
-            return False
-
-        print(f"缓存有效: {cache_file} (最后日期: {last_date})")
+        # ==================================================================
+        #2026/04/06今天暂时屏蔽
         return True
+
+        # last_date = pd.to_datetime(last_date).date()
+        # today = datetime.now().date()
+        #
+        # if last_date >= today - timedelta(days=1):
+        #     logger.info(f"缓存有效: {cache_file} (最后日期: {last_date})")
+        #     return True
+        # else:
+        #     logger.info(f"缓存过期: {cache_file} (最后日期: {last_date})")
+        #     return False
 
     except Exception as e:
         logger.warning(f"缓存读取异常: {e}")
         if os.path.exists(cache_file):
             os.remove(cache_file)
         return False
+
 
 
 def load_pickle_cache(cache_path):
@@ -200,3 +207,20 @@ def _to_date(value) -> Optional[date_type]:
     if hasattr(value, 'date'):
         return value.date()
     return None
+
+
+def _clean_stock_data(df):
+    """清洗个股数据：移除停牌日（价格为0的行）"""
+    original_len = len(df)
+
+    # 只保留 OHLC 都大于 0 的行（排除停牌日）
+    mask = (df['Open'] > 0) & (df['High'] > 0) & (df['Low'] > 0) & (df['Close'] > 0)
+    df = df[mask].copy()
+
+    cleaned_len = len(df)
+    removed = original_len - cleaned_len
+
+    if removed > 0:
+        print(f"  清洗数据: 移除 {removed} 行非正值数据 ({original_len} → {cleaned_len})")
+
+    return df

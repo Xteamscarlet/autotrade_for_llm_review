@@ -318,6 +318,7 @@ def main():
     if not stocks_data:
         print("错误: 无法获取个股数据")
         return
+
     print(f"stocks_data 类型: {type(stocks_data)}")
     print(f"stocks_data 长度: {len(stocks_data)}")
     print(f"stocks_data 键示例: {list(stocks_data.keys())[:3]}")
