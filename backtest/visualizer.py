@@ -50,17 +50,15 @@ def visualize_backtest_with_split(
             weights_to_use = strat['weights']
         else:
             factor_cols = [
-                col for col in df.columns
-                if col not in ['Close', 'Open', 'High', 'Low', 'Volume', 'MA20']
-                   and pd.api.types.is_numeric_dtype(df[col])
+                col for col in df.columns if col not in ['Close', 'Open', 'High', 'Low', 'Volume', 'MA20']
+                                             and pd.api.types.is_numeric_dtype(df[col])
             ]
             weights_to_use = {col: 1.0 / len(factor_cols) for col in factor_cols} if factor_cols else {}
 
+        # ===== 核心修复 =====
         if weights_to_use:
-            # 只取 df 中实际存在的数值因子列
             valid_factors = [
-                col for col in weights_to_use
-                if col in df.columns and pd.api.types.is_numeric_dtype(df[col])
+                col for col in weights_to_use if col in df.columns and pd.api.types.is_numeric_dtype(df[col])
             ]
             if valid_factors:
                 w = pd.Series(weights_to_use).reindex(valid_factors)
@@ -68,11 +66,42 @@ def visualize_backtest_with_split(
                 if w_sum > 0:
                     df['Combined_Score'] = df[valid_factors].mul(w).sum(axis=1) / w_sum
                 else:
-                    df['Combined_Score'] = 0.5
+                    # 修复B1b: 权重全为0时(如优化器失败返回-999)，改用等权均值
+                    print(f"{stock_name} 因子权重全为0(w_sum=0)，改用等权均值计算综合得分")
+                    df['Combined_Score'] = df[valid_factors].mean(axis=1)
             else:
-                df['Combined_Score'] = 0.5
+                # 修复B2: 权重key与df列名不匹配时，自动检测因子列
+                print(f"{stock_name} 权重字典中无匹配的因子列，自动检测因子列")
+                exclude_cols = ['Close', 'Open', 'High', 'Low', 'Volume', 'MA20',
+                                'MA5', 'MA60', 'buy_signal', 'sell_signal',
+                                'position', 'Combined_Score', 'transformer_prob']
+                auto_factors = [
+                    col for col in df.columns
+                    if col not in exclude_cols and pd.api.types.is_numeric_dtype(df[col])
+                ]
+                if auto_factors:
+                    df['Combined_Score'] = df[auto_factors].mean(axis=1)
+                else:
+                    print(f"{stock_name} 未找到任何因子列，综合得分设为默认值0.5")
+                    df['Combined_Score'] = 0.5
         else:
-            df['Combined_Score'] = 0.5
+            # 修复C: 权重为空字典时，自动检测因子列
+            print(f"{stock_name} 权重为空，自动检测因子列计算综合得分")
+            exclude_cols = ['Close', 'Open', 'High', 'Low', 'Volume', 'MA20',
+                            'MA5', 'MA60', 'buy_signal', 'sell_signal',
+                            'position', 'Combined_Score', 'transformer_prob']
+            auto_factors = [
+                col for col in df.columns
+                if col not in exclude_cols and pd.api.types.is_numeric_dtype(df[col])
+            ]
+            if auto_factors:
+                df['Combined_Score'] = df[auto_factors].mean(axis=1)
+            else:
+                print(f"{stock_name} 未找到任何因子列，综合得分设为默认值0.5")
+                df['Combined_Score'] = 0.5
+    else:
+        # 修复D: Combined_Score已存在时保留原值，不再覆盖为0.5
+        print(f"{stock_name} 使用已有的Combined_Score列")
 
     fig = plt.figure(figsize=(20, 27))
     fig.suptitle(f'{stock_name} 测试集回测可视化 (全因子展示)', fontsize=16, fontweight='bold')
