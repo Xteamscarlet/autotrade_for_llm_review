@@ -1,12 +1,16 @@
-Connected to: <socket.socket fd=776, family=2, type=1, proto=0, laddr=('127.0.0.1', 7374), raddr=('127.0.0.1', 7373)>.
+D:\anaconda3\python.exe "G:/pycharm/PyCharm 2025.2.0.1/plugins/python-ce/helpers/pydev/pydevd.py" --multiprocess --qt-support=auto --client 127.0.0.1 --port 7626 --file E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py 
+Connected to: <socket.socket fd=584, family=2, type=1, proto=0, laddr=('127.0.0.1', 7627), raddr=('127.0.0.1', 7626)>.
 Connected to pydev debugger (build 252.23892.515)
-2026-04-06 09:31:47,196 - __main__ - INFO - ================================================================================
-2026-04-06 09:31:47,196 - __main__ - INFO - 开始回测（无Transformer版本）
-2026-04-06 09:31:47,196 - __main__ - INFO - ================================================================================
-2026-04-06 09:31:47,196 - __main__ - INFO - 步骤1: 准备数据...
+2026-04-06 09:36:20,745 - __main__ - INFO - ================================================================================
+2026-04-06 09:36:20,745 - __main__ - INFO - 开始回测（无Transformer版本）
+2026-04-06 09:36:20,745 - __main__ - INFO - ================================================================================
+2026-04-06 09:36:20,752 - __main__ - INFO - 步骤1: 准备数据...
 
 [2/3] 检查个股数据...
 使用缓存的股票数据...
+2026-04-06 09:36:20,809 - utils.stock_filter_new - INFO - 股票池过滤完成: 原始 20 只, 移除 0 只, 保留 20 只
+2026-04-06 09:36:20,809 - __main__ - INFO - 有效股票数量: 20
+2026-04-06 09:36:20,809 - __main__ - INFO - 步骤2: 执行回测...
 stocks_data 类型: <class 'dict'>
 stocks_data 长度: 20
 stocks_data 键示例: ['贵州茅台', '美的集团', '国轩高科']
@@ -15,376 +19,295 @@ stocks_data 键示例: ['贵州茅台', '美的集团', '国轩高科']
  类型: <class 'dict'>
  长度: 20
  前3个键: ['贵州茅台', '美的集团', '国轩高科']
-2026-04-06 09:31:47,215 - utils.stock_filter_new - INFO - 股票池过滤完成: 原始 20 只, 移除 0 只, 保留 20 只
-2026-04-06 09:31:47,216 - __main__ - INFO - 有效股票数量: 20
-2026-04-06 09:31:47,216 - __main__ - INFO - 步骤2: 执行回测...
-Connected to: <socket.socket fd=576, family=2, type=1, proto=0, laddr=('127.0.0.1', 7380), raddr=('127.0.0.1', 7373)>.
-Connected to: <socket.socket fd=520, family=2, type=1, proto=0, laddr=('127.0.0.1', 7382), raddr=('127.0.0.1', 7373)>.
-Connected to: <socket.socket fd=568, family=2, type=1, proto=0, laddr=('127.0.0.1', 7390), raddr=('127.0.0.1', 7373)>.
-Connected to: <socket.socket fd=568, family=2, type=1, proto=0, laddr=('127.0.0.1', 7392), raddr=('127.0.0.1', 7373)>.
-回测进度:   0%|          | 0/20 [00:00<?, ?it/s]2026-04-06 09:32:00,119 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:00,121 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:00,121 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:00,130 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:00,512 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:00,514 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:00,514 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 开始回测，数据长度: 643，因子数: 8
-2026-04-06 09:32:00,514 - backtest.engine_no_transformer_new - WARNING - [隆基绿能] 无有效权重，使用等权重
-2026-04-06 09:32:00,516 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:00,517 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:00,518 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 开始回测，数据长度: 476，因子数: 8
-2026-04-06 09:32:00,518 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:00,518 - backtest.engine_no_transformer_new - WARNING - [贵州茅台] 无有效权重，使用等权重
-2026-04-06 09:32:00,519 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:00,519 - backtest.engine_no_transformer_new - INFO - [美的集团] 开始回测，数据长度: 519，因子数: 8
-2026-04-06 09:32:00,519 - backtest.engine_no_transformer_new - WARNING - [美的集团] 无有效权重，使用等权重
-2026-04-06 09:32:00,533 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:00,537 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:00,537 - backtest.engine_no_transformer_new - INFO - [国轩高科] 开始回测，数据长度: 899，因子数: 8
-2026-04-06 09:32:00,537 - backtest.engine_no_transformer_new - WARNING - [国轩高科] 无有效权重，使用等权重
-2026-04-06 09:32:01,436 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 信号统计: 买入=19, 卖出=18
-2026-04-06 09:32:01,442 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 回测完成: 总交易=18, 胜率=38.9%, 夏普=-1.01
-2026-04-06 09:32:01,442 - __mp_main__ - INFO - 股票 贵州茅台: 交易次数 18
-回测进度:   5%|▌         | 1/20 [00:01<00:25,  1.35s/it]2026-04-06 09:32:01,469 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:01,512 - backtest.engine_no_transformer_new - INFO - [美的集团] 信号统计: 买入=13, 卖出=12
-2026-04-06 09:32:01,518 - backtest.engine_no_transformer_new - INFO - [美的集团] 回测完成: 总交易=12, 胜率=66.7%, 夏普=0.78
-2026-04-06 09:32:01,518 - __mp_main__ - INFO - 股票 美的集团: 交易次数 12
-2026-04-06 09:32:01,555 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:01,765 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 信号统计: 买入=28, 卖出=28
-2026-04-06 09:32:01,769 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 回测完成: 总交易=28, 胜率=39.3%, 夏普=-0.90
-2026-04-06 09:32:01,769 - __mp_main__ - INFO - 股票 隆基绿能: 交易次数 28
-2026-04-06 09:32:01,803 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:01,865 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:01,866 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:01,867 - backtest.engine_no_transformer_new - INFO - [赛力斯] 开始回测，数据长度: 471，因子数: 8
-2026-04-06 09:32:01,867 - backtest.engine_no_transformer_new - WARNING - [赛力斯] 无有效权重，使用等权重
-2026-04-06 09:32:01,987 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:01,988 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:01,989 - backtest.engine_no_transformer_new - INFO - [比亚迪] 开始回测，数据长度: 714，因子数: 8
-2026-04-06 09:32:01,989 - backtest.engine_no_transformer_new - WARNING - [比亚迪] 无有效权重，使用等权重
-2026-04-06 09:32:02,203 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:02,204 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:02,205 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 开始回测，数据长度: 848，因子数: 8
-2026-04-06 09:32:02,205 - backtest.engine_no_transformer_new - WARNING - [科大讯飞] 无有效权重，使用等权重
-2026-04-06 09:32:02,331 - backtest.engine_no_transformer_new - INFO - [国轩高科] 信号统计: 买入=38, 卖出=38
-2026-04-06 09:32:02,339 - backtest.engine_no_transformer_new - INFO - [国轩高科] 回测完成: 总交易=38, 胜率=34.2%, 夏普=0.13
-2026-04-06 09:32:02,339 - __mp_main__ - INFO - 股票 国轩高科: 交易次数 38
-回测进度:  15%|█▌        | 3/20 [00:02<00:11,  1.46it/s]2026-04-06 09:32:02,369 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:02,779 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:02,780 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:02,780 - backtest.engine_no_transformer_new - INFO - [海康威视] 开始回测，数据长度: 625，因子数: 8
-2026-04-06 09:32:02,780 - backtest.engine_no_transformer_new - WARNING - [海康威视] 无有效权重，使用等权重
-2026-04-06 09:32:02,792 - backtest.engine_no_transformer_new - INFO - [赛力斯] 信号统计: 买入=14, 卖出=14
-2026-04-06 09:32:02,797 - backtest.engine_no_transformer_new - INFO - [赛力斯] 回测完成: 总交易=14, 胜率=28.6%, 夏普=-0.29
-2026-04-06 09:32:02,798 - __mp_main__ - INFO - 股票 赛力斯: 交易次数 14
-回测进度:  25%|██▌       | 5/20 [00:02<00:06,  2.22it/s]2026-04-06 09:32:02,834 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:03,239 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:03,240 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:03,240 - backtest.engine_no_transformer_new - INFO - [中信证券] 开始回测，数据长度: 929，因子数: 8
-2026-04-06 09:32:03,240 - backtest.engine_no_transformer_new - WARNING - [中信证券] 无有效权重，使用等权重
-2026-04-06 09:32:03,412 - backtest.engine_no_transformer_new - INFO - [比亚迪] 信号统计: 买入=22, 卖出=22
-2026-04-06 09:32:03,418 - backtest.engine_no_transformer_new - INFO - [比亚迪] 回测完成: 总交易=22, 胜率=31.8%, 夏普=0.32
-2026-04-06 09:32:03,418 - __mp_main__ - INFO - 股票 比亚迪: 交易次数 22
-回测进度:  30%|███       | 6/20 [00:03<00:06,  2.02it/s]2026-04-06 09:32:03,453 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:03,878 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:03,879 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:03,880 - backtest.engine_no_transformer_new - INFO - [光迅科技] 开始回测，数据长度: 793，因子数: 8
-2026-04-06 09:32:03,880 - backtest.engine_no_transformer_new - WARNING - [光迅科技] 无有效权重，使用等权重
-2026-04-06 09:32:03,911 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 信号统计: 买入=31, 卖出=31
-2026-04-06 09:32:03,918 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 回测完成: 总交易=31, 胜率=35.5%, 夏普=0.55
-2026-04-06 09:32:03,918 - __mp_main__ - INFO - 股票 科大讯飞: 交易次数 31
-回测进度:  35%|███▌      | 7/20 [00:03<00:06,  2.01it/s]2026-04-06 09:32:03,958 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:04,003 - backtest.engine_no_transformer_new - INFO - [海康威视] 信号统计: 买入=14, 卖出=14
-2026-04-06 09:32:04,008 - backtest.engine_no_transformer_new - INFO - [海康威视] 回测完成: 总交易=14, 胜率=71.4%, 夏普=0.46
-2026-04-06 09:32:04,008 - __mp_main__ - INFO - 股票 海康威视: 交易次数 14
-2026-04-06 09:32:04,043 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:04,386 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:04,386 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:04,386 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 开始回测，数据长度: 935，因子数: 8
-2026-04-06 09:32:04,386 - backtest.engine_no_transformer_new - WARNING - [恒瑞医药] 无有效权重，使用等权重
-2026-04-06 09:32:04,460 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:04,461 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:04,461 - backtest.engine_no_transformer_new - INFO - [山东黄金] 开始回测，数据长度: 924，因子数: 8
-2026-04-06 09:32:04,462 - backtest.engine_no_transformer_new - WARNING - [山东黄金] 无有效权重，使用等权重
-2026-04-06 09:32:05,118 - backtest.engine_no_transformer_new - INFO - [中信证券] 信号统计: 买入=28, 卖出=28
-2026-04-06 09:32:05,123 - backtest.engine_no_transformer_new - INFO - [中信证券] 回测完成: 总交易=28, 胜率=39.3%, 夏普=0.75
-2026-04-06 09:32:05,125 - __mp_main__ - INFO - 股票 中信证券: 交易次数 28
-回测进度:  45%|████▌     | 9/20 [00:05<00:05,  1.84it/s]2026-04-06 09:32:05,160 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:05,459 - backtest.engine_no_transformer_new - INFO - [光迅科技] 信号统计: 买入=40, 卖出=39
-2026-04-06 09:32:05,466 - backtest.engine_no_transformer_new - INFO - [光迅科技] 回测完成: 总交易=39, 胜率=48.7%, 夏普=0.82
-2026-04-06 09:32:05,466 - __mp_main__ - INFO - 股票 光迅科技: 交易次数 39
-回测进度:  50%|█████     | 10/20 [00:05<00:04,  2.02it/s]2026-04-06 09:32:05,495 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:05,562 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:05,563 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:05,563 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 开始回测，数据长度: 859，因子数: 8
-2026-04-06 09:32:05,564 - backtest.engine_no_transformer_new - WARNING - [紫金矿业] 无有效权重，使用等权重
-2026-04-06 09:32:05,900 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:05,901 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:05,901 - backtest.engine_no_transformer_new - INFO - [长江电力] 开始回测，数据长度: 560，因子数: 8
-2026-04-06 09:32:05,901 - backtest.engine_no_transformer_new - WARNING - [长江电力] 无有效权重，使用等权重
-2026-04-06 09:32:06,220 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 信号统计: 买入=30, 卖出=29
-2026-04-06 09:32:06,229 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 回测完成: 总交易=29, 胜率=69.0%, 夏普=0.91
-2026-04-06 09:32:06,229 - __mp_main__ - INFO - 股票 恒瑞医药: 交易次数 29
-回测进度:  55%|█████▌    | 11/20 [00:06<00:05,  1.77it/s]2026-04-06 09:32:06,272 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:06,300 - backtest.engine_no_transformer_new - INFO - [山东黄金] 信号统计: 买入=38, 卖出=38
-2026-04-06 09:32:06,307 - backtest.engine_no_transformer_new - INFO - [山东黄金] 回测完成: 总交易=38, 胜率=34.2%, 夏普=0.47
-2026-04-06 09:32:06,307 - __mp_main__ - INFO - 股票 山东黄金: 交易次数 38
-2026-04-06 09:32:06,341 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:06,716 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:06,717 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:06,718 - backtest.engine_no_transformer_new - INFO - [东方电气] 开始回测，数据长度: 1296，因子数: 8
-2026-04-06 09:32:06,718 - backtest.engine_no_transformer_new - WARNING - [东方电气] 无有效权重，使用等权重
-2026-04-06 09:32:06,786 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:06,786 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:06,786 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 开始回测，数据长度: 799，因子数: 8
-2026-04-06 09:32:06,792 - backtest.engine_no_transformer_new - WARNING - [歌尔股份] 无有效权重，使用等权重
-2026-04-06 09:32:07,007 - backtest.engine_no_transformer_new - INFO - [长江电力] 信号统计: 买入=10, 卖出=10
-2026-04-06 09:32:07,011 - backtest.engine_no_transformer_new - INFO - [长江电力] 回测完成: 总交易=10, 胜率=60.0%, 夏普=1.21
-2026-04-06 09:32:07,011 - __mp_main__ - INFO - 股票 长江电力: 交易次数 10
-2026-04-06 09:32:07,043 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:07,318 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 信号统计: 买入=34, 卖出=34
-2026-04-06 09:32:07,320 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 回测完成: 总交易=34, 胜率=47.1%, 夏普=0.97
-2026-04-06 09:32:07,320 - __mp_main__ - INFO - 股票 紫金矿业: 交易次数 34
-回测进度:  65%|██████▌   | 13/20 [00:07<00:03,  1.80it/s]2026-04-06 09:32:07,367 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:07,448 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:07,449 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:07,449 - backtest.engine_no_transformer_new - INFO - [东山精密] 开始回测，数据长度: 734，因子数: 8
-2026-04-06 09:32:07,450 - backtest.engine_no_transformer_new - WARNING - [东山精密] 无有效权重，使用等权重
-2026-04-06 09:32:07,809 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:07,810 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:07,811 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 开始回测，数据长度: 1246，因子数: 8
-2026-04-06 09:32:07,811 - backtest.engine_no_transformer_new - WARNING - [中航沈飞] 无有效权重，使用等权重
-2026-04-06 09:32:08,436 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 信号统计: 买入=29, 卖出=29
-2026-04-06 09:32:08,442 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 回测完成: 总交易=29, 胜率=48.3%, 夏普=0.40
-2026-04-06 09:32:08,442 - __mp_main__ - INFO - 股票 歌尔股份: 交易次数 29
-2026-04-06 09:32:08,479 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:08,945 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:08,945 - backtest.engine_no_transformer_new - INFO - [东山精密] 信号统计: 买入=28, 卖出=28
-2026-04-06 09:32:08,946 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:08,946 - backtest.engine_no_transformer_new - INFO - [北大荒] 开始回测，数据长度: 932，因子数: 8
-2026-04-06 09:32:08,947 - backtest.engine_no_transformer_new - WARNING - [北大荒] 无有效权重，使用等权重
-2026-04-06 09:32:08,952 - backtest.engine_no_transformer_new - INFO - [东山精密] 回测完成: 总交易=28, 胜率=42.9%, 夏普=0.93
-2026-04-06 09:32:08,952 - __mp_main__ - INFO - 股票 东山精密: 交易次数 28
-2026-04-06 09:32:08,992 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
-2026-04-06 09:32:09,415 - backtest.engine_no_transformer_new - INFO - [东方电气] 信号统计: 买入=47, 卖出=47
-2026-04-06 09:32:09,425 - backtest.engine_no_transformer_new - INFO - [东方电气] 回测完成: 总交易=47, 胜率=48.9%, 夏普=0.87
-2026-04-06 09:32:09,425 - __mp_main__ - INFO - 股票 东方电气: 交易次数 47
-回测进度:  75%|███████▌  | 15/20 [00:09<00:03,  1.35it/s]2026-04-06 09:32:09,481 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
-2026-04-06 09:32:09,481 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
-2026-04-06 09:32:09,482 - backtest.engine_no_transformer_new - INFO - [北新建材] 开始回测，数据长度: 804，因子数: 8
-2026-04-06 09:32:09,482 - backtest.engine_no_transformer_new - WARNING - [北新建材] 无有效权重，使用等权重
-2026-04-06 09:32:10,347 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 信号统计: 买入=46, 卖出=46
-2026-04-06 09:32:10,354 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 回测完成: 总交易=46, 胜率=32.6%, 夏普=-0.82
-2026-04-06 09:32:10,354 - __mp_main__ - INFO - 股票 中航沈飞: 交易次数 46
-回测进度:  90%|█████████ | 18/20 [00:10<00:01,  1.82it/s]2026-04-06 09:32:10,794 - backtest.engine_no_transformer_new - INFO - [北大荒] 信号统计: 买入=28, 卖出=28
-2026-04-06 09:32:10,798 - backtest.engine_no_transformer_new - INFO - [北大荒] 回测完成: 总交易=28, 胜率=50.0%, 夏普=-0.88
-2026-04-06 09:32:10,798 - __mp_main__ - INFO - 股票 北大荒: 交易次数 28
-回测进度:  95%|█████████▌| 19/20 [00:10<00:00,  1.89it/s]2026-04-06 09:32:11,031 - backtest.engine_no_transformer_new - INFO - [北新建材] 信号统计: 买入=25, 卖出=24
-2026-04-06 09:32:11,038 - backtest.engine_no_transformer_new - INFO - [北新建材] 回测完成: 总交易=24, 胜率=50.0%, 夏普=0.77
-2026-04-06 09:32:11,038 - __mp_main__ - INFO - 股票 北新建材: 交易次数 24
-回测进度: 100%|██████████| 20/20 [00:10<00:00,  1.83it/s]
-2026-04-06 09:32:11,042 - __main__ - INFO - 步骤3: 统计结果...
-2026-04-06 09:32:11,042 - __main__ - INFO - 回测成功: 20/20
-2026-04-06 09:32:11,042 - __main__ - INFO - 步骤4: 筛选策略...
-2026-04-06 09:32:11,042 - __main__ - INFO - 策略 贵州茅台: 丢弃 - 夏普比率 -1.0096 < 0.0, 最大回撤 -26.80% < -20.0%
-2026-04-06 09:32:11,042 - __main__ - INFO - 策略 美的集团: 通过筛选
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 国轩高科: 丢弃 - 最大回撤 -58.12% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 隆基绿能: 丢弃 - 夏普比率 -0.9021 < 0.0, 最大回撤 -44.35% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 赛力斯: 丢弃 - 夏普比率 -0.2893 < 0.0, 最大回撤 -33.58% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 比亚迪: 丢弃 - 最大回撤 -23.98% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 科大讯飞: 丢弃 - 最大回撤 -42.30% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 海康威视: 通过筛选
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 中信证券: 通过筛选
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 光迅科技: 丢弃 - 最大回撤 -30.90% < -20.0%
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 恒瑞医药: 通过筛选
-2026-04-06 09:32:11,043 - __main__ - INFO - 策略 山东黄金: 丢弃 - 最大回撤 -23.08% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 紫金矿业: 丢弃 - 最大回撤 -22.32% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 长江电力: 通过筛选
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 东方电气: 丢弃 - 最大回撤 -31.45% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 歌尔股份: 丢弃 - 最大回撤 -20.74% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 东山精密: 丢弃 - 最大回撤 -28.17% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 中航沈飞: 丢弃 - 夏普比率 -0.8184 < 0.0, 最大回撤 -63.19% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 北大荒: 丢弃 - 夏普比率 -0.8773 < 0.0, 最大回撤 -28.27% < -20.0%
-2026-04-06 09:32:11,044 - __main__ - INFO - 策略 北新建材: 通过筛选
-2026-04-06 09:32:11,045 - __main__ - INFO - 步骤5: 生成报告...
-2026-04-06 09:32:11,045 - __main__ - INFO - 最终保留 6 个策略
-2026-04-06 09:32:11,053 - __main__ - INFO - 结果已保存到: ./stock_cache/no_transformer_results\backtest_results.json
+Connected to: <socket.socket fd=708, family=2, type=1, proto=0, laddr=('127.0.0.1', 7631), raddr=('127.0.0.1', 7626)>.
+Connected to: <socket.socket fd=568, family=2, type=1, proto=0, laddr=('127.0.0.1', 7635), raddr=('127.0.0.1', 7626)>.
+Connected to: <socket.socket fd=576, family=2, type=1, proto=0, laddr=('127.0.0.1', 7637), raddr=('127.0.0.1', 7626)>.
+Connected to: <socket.socket fd=820, family=2, type=1, proto=0, laddr=('127.0.0.1', 7641), raddr=('127.0.0.1', 7626)>.
+回测进度:   0%|          | 0/20 [00:00<?, ?it/s]2026-04-06 09:36:34,508 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:34,511 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:34,513 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:34,516 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:35,053 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:35,055 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:35,055 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 开始回测，数据长度: 643，因子数: 8
+2026-04-06 09:36:35,055 - backtest.engine_no_transformer_new - WARNING - [隆基绿能] 无有效权重，使用等权重
+2026-04-06 09:36:35,066 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:35,067 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:35,067 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 开始回测，数据长度: 476，因子数: 8
+2026-04-06 09:36:35,068 - backtest.engine_no_transformer_new - WARNING - [贵州茅台] 无有效权重，使用等权重
+2026-04-06 09:36:35,077 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:35,078 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:35,078 - backtest.engine_no_transformer_new - INFO - [国轩高科] 开始回测，数据长度: 899，因子数: 8
+2026-04-06 09:36:35,079 - backtest.engine_no_transformer_new - WARNING - [国轩高科] 无有效权重，使用等权重
+2026-04-06 09:36:35,097 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:35,098 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:35,098 - backtest.engine_no_transformer_new - INFO - [美的集团] 开始回测，数据长度: 519，因子数: 8
+2026-04-06 09:36:35,099 - backtest.engine_no_transformer_new - WARNING - [美的集团] 无有效权重，使用等权重
+2026-04-06 09:36:36,114 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 信号统计: 买入=19, 卖出=18
+2026-04-06 09:36:36,122 - backtest.engine_no_transformer_new - INFO - [贵州茅台] 回测完成: 总交易=18, 胜率=38.9%, 夏普=-1.01
+2026-04-06 09:36:36,122 - __mp_main__ - INFO - 股票 贵州茅台: 交易次数 18
+回测进度:   5%|▌         | 1/20 [00:01<00:31,  1.66s/it]2026-04-06 09:36:36,146 - backtest.engine_no_transformer_new - INFO - [美的集团] 信号统计: 买入=13, 卖出=12
+2026-04-06 09:36:36,146 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:36,155 - backtest.engine_no_transformer_new - INFO - [美的集团] 回测完成: 总交易=12, 胜率=66.7%, 夏普=0.78
+2026-04-06 09:36:36,155 - __mp_main__ - INFO - 股票 美的集团: 交易次数 12
+2026-04-06 09:36:36,186 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:36,402 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 信号统计: 买入=28, 卖出=28
+2026-04-06 09:36:36,409 - backtest.engine_no_transformer_new - INFO - [隆基绿能] 回测完成: 总交易=28, 胜率=39.3%, 夏普=-0.90
+2026-04-06 09:36:36,410 - __mp_main__ - INFO - 股票 隆基绿能: 交易次数 28
+2026-04-06 09:36:36,445 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:36,559 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:36,560 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:36,560 - backtest.engine_no_transformer_new - INFO - [赛力斯] 开始回测，数据长度: 471，因子数: 8
+2026-04-06 09:36:36,560 - backtest.engine_no_transformer_new - WARNING - [赛力斯] 无有效权重，使用等权重
+2026-04-06 09:36:36,582 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:36,583 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:36,584 - backtest.engine_no_transformer_new - INFO - [比亚迪] 开始回测，数据长度: 714，因子数: 8
+2026-04-06 09:36:36,584 - backtest.engine_no_transformer_new - WARNING - [比亚迪] 无有效权重，使用等权重
+2026-04-06 09:36:36,894 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:36,900 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:36,900 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 开始回测，数据长度: 848，因子数: 8
+2026-04-06 09:36:36,901 - backtest.engine_no_transformer_new - WARNING - [科大讯飞] 无有效权重，使用等权重
+2026-04-06 09:36:36,994 - backtest.engine_no_transformer_new - INFO - [国轩高科] 信号统计: 买入=38, 卖出=38
+2026-04-06 09:36:37,002 - backtest.engine_no_transformer_new - INFO - [国轩高科] 回测完成: 总交易=38, 胜率=34.2%, 夏普=0.13
+2026-04-06 09:36:37,002 - __mp_main__ - INFO - 股票 国轩高科: 交易次数 38
+回测进度:  15%|█▌        | 3/20 [00:02<00:12,  1.32it/s]2026-04-06 09:36:37,034 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:37,438 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:37,439 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:37,439 - backtest.engine_no_transformer_new - INFO - [海康威视] 开始回测，数据长度: 625，因子数: 8
+2026-04-06 09:36:37,440 - backtest.engine_no_transformer_new - WARNING - [海康威视] 无有效权重，使用等权重
+2026-04-06 09:36:37,594 - backtest.engine_no_transformer_new - INFO - [赛力斯] 信号统计: 买入=14, 卖出=14
+2026-04-06 09:36:37,599 - backtest.engine_no_transformer_new - INFO - [赛力斯] 回测完成: 总交易=14, 胜率=28.6%, 夏普=-0.29
+2026-04-06 09:36:37,599 - __mp_main__ - INFO - 股票 赛力斯: 交易次数 14
+回测进度:  25%|██▌       | 5/20 [00:03<00:07,  1.92it/s]2026-04-06 09:36:37,641 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:38,073 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:38,074 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:38,074 - backtest.engine_no_transformer_new - INFO - [中信证券] 开始回测，数据长度: 929，因子数: 8
+2026-04-06 09:36:38,075 - backtest.engine_no_transformer_new - WARNING - [中信证券] 无有效权重，使用等权重
+2026-04-06 09:36:38,191 - backtest.engine_no_transformer_new - INFO - [比亚迪] 信号统计: 买入=22, 卖出=22
+2026-04-06 09:36:38,194 - backtest.engine_no_transformer_new - INFO - [比亚迪] 回测完成: 总交易=22, 胜率=31.8%, 夏普=0.32
+2026-04-06 09:36:38,194 - __mp_main__ - INFO - 股票 比亚迪: 交易次数 22
+回测进度:  30%|███       | 6/20 [00:03<00:07,  1.85it/s]2026-04-06 09:36:38,235 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:38,651 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:38,652 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:38,653 - backtest.engine_no_transformer_new - INFO - [光迅科技] 开始回测，数据长度: 793，因子数: 8
+2026-04-06 09:36:38,653 - backtest.engine_no_transformer_new - WARNING - [光迅科技] 无有效权重，使用等权重
+2026-04-06 09:36:38,779 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 信号统计: 买入=31, 卖出=31
+2026-04-06 09:36:38,786 - backtest.engine_no_transformer_new - INFO - [科大讯飞] 回测完成: 总交易=31, 胜率=35.5%, 夏普=0.55
+2026-04-06 09:36:38,786 - __mp_main__ - INFO - 股票 科大讯飞: 交易次数 31
+回测进度:  35%|███▌      | 7/20 [00:04<00:07,  1.80it/s]2026-04-06 09:36:38,807 - backtest.engine_no_transformer_new - INFO - [海康威视] 信号统计: 买入=14, 卖出=14
+2026-04-06 09:36:38,812 - backtest.engine_no_transformer_new - INFO - [海康威视] 回测完成: 总交易=14, 胜率=71.4%, 夏普=0.46
+2026-04-06 09:36:38,812 - __mp_main__ - INFO - 股票 海康威视: 交易次数 14
+2026-04-06 09:36:38,824 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:38,848 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:39,240 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:39,241 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:39,242 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 开始回测，数据长度: 935，因子数: 8
+2026-04-06 09:36:39,242 - backtest.engine_no_transformer_new - WARNING - [恒瑞医药] 无有效权重，使用等权重
+2026-04-06 09:36:39,280 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:39,281 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:39,281 - backtest.engine_no_transformer_new - INFO - [山东黄金] 开始回测，数据长度: 924，因子数: 8
+2026-04-06 09:36:39,282 - backtest.engine_no_transformer_new - WARNING - [山东黄金] 无有效权重，使用等权重
+2026-04-06 09:36:39,979 - backtest.engine_no_transformer_new - INFO - [中信证券] 信号统计: 买入=28, 卖出=28
+2026-04-06 09:36:39,985 - backtest.engine_no_transformer_new - INFO - [中信证券] 回测完成: 总交易=28, 胜率=39.3%, 夏普=0.75
+2026-04-06 09:36:39,985 - __mp_main__ - INFO - 股票 中信证券: 交易次数 28
+回测进度:  45%|████▌     | 9/20 [00:05<00:06,  1.74it/s]2026-04-06 09:36:40,020 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:40,291 - backtest.engine_no_transformer_new - INFO - [光迅科技] 信号统计: 买入=40, 卖出=39
+2026-04-06 09:36:40,298 - backtest.engine_no_transformer_new - INFO - [光迅科技] 回测完成: 总交易=39, 胜率=48.7%, 夏普=0.82
+2026-04-06 09:36:40,298 - __mp_main__ - INFO - 股票 光迅科技: 交易次数 39
+回测进度:  50%|█████     | 10/20 [00:05<00:05,  1.95it/s]2026-04-06 09:36:40,327 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:40,444 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:40,444 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:40,444 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 开始回测，数据长度: 859，因子数: 8
+2026-04-06 09:36:40,444 - backtest.engine_no_transformer_new - WARNING - [紫金矿业] 无有效权重，使用等权重
+2026-04-06 09:36:40,742 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:40,745 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:40,745 - backtest.engine_no_transformer_new - INFO - [长江电力] 开始回测，数据长度: 560，因子数: 8
+2026-04-06 09:36:40,746 - backtest.engine_no_transformer_new - WARNING - [长江电力] 无有效权重，使用等权重
+2026-04-06 09:36:41,182 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 信号统计: 买入=30, 卖出=29
+2026-04-06 09:36:41,188 - backtest.engine_no_transformer_new - INFO - [恒瑞医药] 回测完成: 总交易=29, 胜率=69.0%, 夏普=0.91
+2026-04-06 09:36:41,188 - __mp_main__ - INFO - 股票 恒瑞医药: 交易次数 29
+回测进度:  55%|█████▌    | 11/20 [00:06<00:05,  1.64it/s]2026-04-06 09:36:41,233 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:41,258 - backtest.engine_no_transformer_new - INFO - [山东黄金] 信号统计: 买入=38, 卖出=38
+2026-04-06 09:36:41,264 - backtest.engine_no_transformer_new - INFO - [山东黄金] 回测完成: 总交易=38, 胜率=34.2%, 夏普=0.47
+2026-04-06 09:36:41,264 - __mp_main__ - INFO - 股票 山东黄金: 交易次数 38
+2026-04-06 09:36:41,300 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:41,686 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:41,687 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:41,687 - backtest.engine_no_transformer_new - INFO - [东方电气] 开始回测，数据长度: 1296，因子数: 8
+2026-04-06 09:36:41,687 - backtest.engine_no_transformer_new - WARNING - [东方电气] 无有效权重，使用等权重
+2026-04-06 09:36:41,764 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:41,765 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:41,765 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 开始回测，数据长度: 799，因子数: 8
+2026-04-06 09:36:41,766 - backtest.engine_no_transformer_new - WARNING - [歌尔股份] 无有效权重，使用等权重
+2026-04-06 09:36:41,932 - backtest.engine_no_transformer_new - INFO - [长江电力] 信号统计: 买入=10, 卖出=10
+2026-04-06 09:36:41,937 - backtest.engine_no_transformer_new - INFO - [长江电力] 回测完成: 总交易=10, 胜率=60.0%, 夏普=1.21
+2026-04-06 09:36:41,937 - __mp_main__ - INFO - 股票 长江电力: 交易次数 10
+2026-04-06 09:36:41,970 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:42,344 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 信号统计: 买入=34, 卖出=34
+2026-04-06 09:36:42,351 - backtest.engine_no_transformer_new - INFO - [紫金矿业] 回测完成: 总交易=34, 胜率=47.1%, 夏普=0.97
+2026-04-06 09:36:42,351 - __mp_main__ - INFO - 股票 紫金矿业: 交易次数 34
+回测进度:  65%|██████▌   | 13/20 [00:07<00:04,  1.68it/s]2026-04-06 09:36:42,393 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:42,400 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:42,400 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:42,400 - backtest.engine_no_transformer_new - INFO - [东山精密] 开始回测，数据长度: 734，因子数: 8
+2026-04-06 09:36:42,400 - backtest.engine_no_transformer_new - WARNING - [东山精密] 无有效权重，使用等权重
+2026-04-06 09:36:42,798 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:42,799 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:42,800 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 开始回测，数据长度: 1246，因子数: 8
+2026-04-06 09:36:42,800 - backtest.engine_no_transformer_new - WARNING - [中航沈飞] 无有效权重，使用等权重
+2026-04-06 09:36:43,427 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 信号统计: 买入=29, 卖出=29
+2026-04-06 09:36:43,433 - backtest.engine_no_transformer_new - INFO - [歌尔股份] 回测完成: 总交易=29, 胜率=48.3%, 夏普=0.40
+2026-04-06 09:36:43,433 - __mp_main__ - INFO - 股票 歌尔股份: 交易次数 29
+2026-04-06 09:36:43,474 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:44,007 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:44,009 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:44,009 - backtest.engine_no_transformer_new - INFO - [北大荒] 开始回测，数据长度: 932，因子数: 8
+2026-04-06 09:36:44,010 - backtest.engine_no_transformer_new - WARNING - [北大荒] 无有效权重，使用等权重
+2026-04-06 09:36:44,034 - backtest.engine_no_transformer_new - INFO - [东山精密] 信号统计: 买入=28, 卖出=28
+2026-04-06 09:36:44,045 - backtest.engine_no_transformer_new - INFO - [东山精密] 回测完成: 总交易=28, 胜率=42.9%, 夏普=0.93
+2026-04-06 09:36:44,045 - __mp_main__ - INFO - 股票 东山精密: 交易次数 28
+2026-04-06 09:36:44,101 - backtest.optimizer_new - WARNING - 无有效因子列，返回空权重
+2026-04-06 09:36:44,573 - backtest.engine_no_transformer_new - INFO - [东方电气] 信号统计: 买入=47, 卖出=47
+2026-04-06 09:36:44,580 - backtest.engine_no_transformer_new - INFO - [东方电气] 回测完成: 总交易=47, 胜率=48.9%, 夏普=0.87
+2026-04-06 09:36:44,580 - __mp_main__ - INFO - 股票 东方电气: 交易次数 47
+回测进度:  75%|███████▌  | 15/20 [00:10<00:03,  1.26it/s]2026-04-06 09:36:44,616 - backtest.optimizer_new - INFO - 优化完成: 最优夏普比率=-999.0000
+2026-04-06 09:36:44,622 - backtest.optimizer_new - INFO - Walk-Forward划分完成: 5 个划分
+2026-04-06 09:36:44,622 - backtest.engine_no_transformer_new - INFO - [北新建材] 开始回测，数据长度: 804，因子数: 8
+2026-04-06 09:36:44,622 - backtest.engine_no_transformer_new - WARNING - [北新建材] 无有效权重，使用等权重
+2026-04-06 09:36:45,590 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 信号统计: 买入=46, 卖出=46
+2026-04-06 09:36:45,597 - backtest.engine_no_transformer_new - INFO - [中航沈飞] 回测完成: 总交易=46, 胜率=32.6%, 夏普=-0.82
+2026-04-06 09:36:45,598 - __mp_main__ - INFO - 股票 中航沈飞: 交易次数 46
+回测进度:  90%|█████████ | 18/20 [00:11<00:01,  1.70it/s]2026-04-06 09:36:45,997 - backtest.engine_no_transformer_new - INFO - [北大荒] 信号统计: 买入=28, 卖出=28
+2026-04-06 09:36:46,003 - backtest.engine_no_transformer_new - INFO - [北大荒] 回测完成: 总交易=28, 胜率=50.0%, 夏普=-0.88
+2026-04-06 09:36:46,003 - __mp_main__ - INFO - 股票 北大荒: 交易次数 28
+回测进度:  95%|█████████▌| 19/20 [00:11<00:00,  1.79it/s]2026-04-06 09:36:46,255 - backtest.engine_no_transformer_new - INFO - [北新建材] 信号统计: 买入=25, 卖出=24
+2026-04-06 09:36:46,265 - backtest.engine_no_transformer_new - INFO - [北新建材] 回测完成: 总交易=24, 胜率=50.0%, 夏普=0.77
+2026-04-06 09:36:46,265 - __mp_main__ - INFO - 股票 北新建材: 交易次数 24
+回测进度: 100%|██████████| 20/20 [00:11<00:00,  1.69it/s]
+2026-04-06 09:36:46,269 - __main__ - INFO - 步骤3: 统计结果...
+2026-04-06 09:36:46,269 - __main__ - INFO - 回测成功: 20/20
+2026-04-06 09:36:46,269 - __main__ - INFO - 步骤4: 筛选策略...
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 贵州茅台: 丢弃 - 夏普比率 -1.0096 < 0.0, 最大回撤 -26.80% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 美的集团: 通过筛选
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 国轩高科: 丢弃 - 最大回撤 -58.12% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 隆基绿能: 丢弃 - 夏普比率 -0.9021 < 0.0, 最大回撤 -44.35% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 赛力斯: 丢弃 - 夏普比率 -0.2893 < 0.0, 最大回撤 -33.58% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 比亚迪: 丢弃 - 最大回撤 -23.98% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 科大讯飞: 丢弃 - 最大回撤 -42.30% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 海康威视: 通过筛选
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 中信证券: 通过筛选
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 光迅科技: 丢弃 - 最大回撤 -30.90% < -20.0%
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 恒瑞医药: 通过筛选
+2026-04-06 09:36:46,270 - __main__ - INFO - 策略 山东黄金: 丢弃 - 最大回撤 -23.08% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 紫金矿业: 丢弃 - 最大回撤 -22.32% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 长江电力: 通过筛选
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 东方电气: 丢弃 - 最大回撤 -31.45% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 歌尔股份: 丢弃 - 最大回撤 -20.74% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 东山精密: 丢弃 - 最大回撤 -28.17% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 中航沈飞: 丢弃 - 夏普比率 -0.8184 < 0.0, 最大回撤 -63.19% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 北大荒: 丢弃 - 夏普比率 -0.8773 < 0.0, 最大回撤 -28.27% < -20.0%
+2026-04-06 09:36:46,271 - __main__ - INFO - 策略 北新建材: 通过筛选
+2026-04-06 09:36:46,271 - __main__ - INFO - 步骤5: 生成报告...
+2026-04-06 09:36:46,271 - __main__ - INFO - 最终保留 6 个策略
+2026-04-06 09:36:46,276 - __main__ - INFO - 结果已保存到: ./stock_cache/no_transformer_results\backtest_results.json
 
 ================================================================================
 开始生成可视化图表...
 ================================================================================
- ✗ 美的集团 图表生成失败: 'MA20'
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
- ✗ 海康威视 图表生成失败: 'MA20'
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
- ✗ 中信证券 图表生成失败: 'MA20'
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
- ✗ 恒瑞医药 图表生成失败: 'MA20'
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
- ✗ 长江电力 图表生成失败: 'MA20'
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
- ✗ 北新建材 图表生成失败: 'MA20'
-
-================================================================================
-所有可视化图表生成完成！目录: ./stock_cache/no_transformer_results\backtest_charts
-================================================================================
-Traceback (most recent call last):
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
-    return self._engine.get_loc(casted_key)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
-  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
-  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
-KeyError: 'MA20'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "E:\autotrade\autotrade_for_llm_review\run_backtest_no_transformer_new.py", line 463, in main
-    visualize_backtest_with_split(
-  File "E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py", line 114, in visualize_backtest_with_split
-    regime = get_market_regime(market_data, buy_date) if market_data is not None else 'neutral'
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\autotrade\autotrade_for_llm_review\data\indicators.py", line 263, in get_market_regime
-    ma20 = market_data['MA20'].iloc[idx]
-           ~~~~~~~~~~~^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\frame.py", line 4102, in __getitem__
-    indexer = self.columns.get_loc(key)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\ydh\AppData\Roaming\Python\Python311\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
-    raise KeyError(key) from err
-KeyError: 'MA20'
-2026-04-06 09:32:11,344 - __main__ - INFO - ================================================================================
-2026-04-06 09:32:11,344 - __main__ - INFO - 回测完成
-2026-04-06 09:32:11,344 - __main__ - INFO - ================================================================================
+2026-04-06 09:36:46,314 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,320 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,322 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,332 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,339 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,344 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,350 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,356 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,363 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,369 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,375 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:46,382 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+2026-04-06 09:36:51,262 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\美的集团_美的集团_backtest_no_transformer.png
+ ✓ 美的集团 图表已保存
+2026-04-06 09:36:51,290 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,296 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,302 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,308 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,314 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,318 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,327 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,333 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,340 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,346 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,352 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,356 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,366 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:51,373 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+2026-04-06 09:36:57,220 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\海康威视_海康威视_backtest_no_transformer.png
+ ✓ 海康威视 图表已保存
+2026-04-06 09:36:57,251 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,257 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,264 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,271 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,278 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,284 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,290 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,300 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,309 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,319 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,325 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,331 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,337 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,343 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,350 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,356 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,363 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,370 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,381 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,384 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,394 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,400 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,407 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,413 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,417 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,426 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,434 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:36:57,440 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
+2026-04-06 09:37:05,184 - backtest.visualizer - INFO - 图表已保存: ./stock_cache/no_transformer_results\backtest_charts\中信证券_中信证券_backtest_no_transformer.png
+ ✓ 中信证券 图表已保存
+2026-04-06 09:37:05,212 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,218 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,224 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,228 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,236 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,242 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,248 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,254 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,260 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,262 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,272 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,279 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,286 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,291 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,297 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,305 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,310 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,317 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,323 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,328 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,335 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,341 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,347 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,354 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,362 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,368 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,374 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,380 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+2026-04-06 09:37:05,387 - data.indicators - WARNING - get_market_regime: 无法计算 MA20，将按 neutral 处理，原因: safe_sma() got an unexpected keyword argument 'timeperiod'
+E:\autotrade\autotrade_for_llm_review\backtest\visualizer.py:203: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.tight_layout()
