@@ -98,8 +98,13 @@ class CompoundSignalStrategy(BaseStrategy):
                     }
             elif regime == "weak":
                 # 弱势市场降低仓位而非阻断
-                position_ratio *= 0.3
-
+                return {
+                    "action": "hold",
+                    "score": score,
+                    "confidence": transformer_conf,
+                    "position_ratio": 0.3,
+                    "reason": "弱势市场阻断",
+                }
             # ATR动态仓位
             atr = df["atr"].iloc[idx] if "atr" in df.columns else price * 0.02
             if pd.isna(atr) or atr <= 0:

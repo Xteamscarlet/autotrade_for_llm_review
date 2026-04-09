@@ -66,11 +66,11 @@ def calculate_multi_timeframe_score_no_transformer(
     df: pd.DataFrame,
     weights: Optional[Dict[str, float]] = None
 ) -> pd.DataFrame:
-    """璁＄畻澶嶅悎寰楀垎锛堜粎浣跨敤浼犵粺鍥犲瓙锛屼笉鍖呭惈Transformer鍥犲瓙锛?""
+    """计算复合得分（仅使用传统因子，不包含Transformer因子）"""
     df = df.copy()
 
     base_cols = set(NON_FACTOR_COLS)
-    # 鎺掗櫎 Transformer 鐩稿叧鍒?
+    # 排除 Transformer 相关列
     transformer_cols = ['transformer_prob', 'transformer_pred_ret', 'transformer_conf']
     factor_cols = [col for col in df.columns
                    if col not in base_cols and col not in transformer_cols]
@@ -83,7 +83,7 @@ def calculate_multi_timeframe_score_no_transformer(
             df['Combined_Score'] = 0.5
             return df
 
-    # 杩囨护鏈夋晥鍥犲瓙
+    # 过滤有效因子
     valid_factors = [col for col in factor_cols if col in weights and col in df.columns]
     if not valid_factors:
         df['Combined_Score'] = 0.5
@@ -104,23 +104,23 @@ def run_backtest_loop_no_transformer(
     stocks_data: Optional[Dict] = None,
     initial_capital: float = 100000.0,
 ) -> Tuple[Optional[pd.DataFrame], Optional[Dict], pd.DataFrame]:
-    """鍥炴祴寮曟搸涓诲惊鐜紙鏃燭ransformer鐗堟湰锛?
+    """回测引擎主循环（无Transformer版本）
 
-    涓庡師鐗堟湰鐨勫尯鍒細
-    1. 绉婚櫎浜?transformer_prob 闃堝€兼鏌?
-    2. 绉婚櫎浜?transformer_conf 缃俊搴︽鏌?
-    3. 鏀惧浜嗘垚浜ら噺杩囨护鏉′欢锛堜粠 1.5 鍊嶆敼涓?0.8 鍊嶏級
-    4. 浠呬緷璧栦紶缁熷洜瀛愬緱鍒嗚繘琛屼拱鍗栧喅绛?
+    与原版本的区别：
+    1. 移除了 transformer_prob 阈值检查
+    2. 移除了 transformer_conf 置信度检查
+    3. 放宽了成交量过滤条件（从 1.5 倍改为 0.8 倍）
+    4. 仅依赖传统因子得分进行买卖决策
 
     Args:
-        df: 鍖呭惈鍥犲瓙鍜屼环鏍兼暟鎹殑 DataFrame
-        stock_code: 鑲＄エ浠ｇ爜
-        market_data: 澶х洏鏁版嵁
-        weights: 鍥犲瓙鏉冮噸
-        params: 绛栫暐鍙傛暟 {regime: {param: value}}
-        regime: 鍥哄畾甯傚満鐘舵€侊紙None 鍒欏姩鎬佸垽鏂級
-        stocks_data: 鎵€鏈夎偂绁ㄦ暟鎹紙鏉冮噸鍔ㄦ€佹洿鏂扮敤锛?
-        initial_capital: 鍒濆璧勯噾
+        df: 包含因子和价格数据的 DataFrame
+        stock_code: 股票代码
+        market_data: 大盘数据
+        weights: 因子权重
+        params: 策略参数 {regime: {param: value}}
+        regime: 固定市场状态（None 则动态判断）
+        stocks_data: 所有股票数据（权重动态更新用）
+        initial_capital: 初始资金
 
     Returns:
         (trades_df, stats, df_with_score)
@@ -225,30 +225,30 @@ def run_backtest_loop_no_transformer(
                 })
                 position = 0
 
-        # ========== 绌轰粨鏃跺鐞嗕拱鍏ラ€昏緫锛堟棤Transformer鐗堟湰锛?==========
+        # ========== 空仓时处理买入逻辑（无Transformer版本） ==========
         if position == 0:
-            # 涔板叆鏉′欢锛氱患鍚堝緱鍒嗚秴杩囬槇鍊?
+            # 买入条件：综合得分超过阈值
             buy_threshold = p.get('buy_threshold', 0.6)
             if score < buy_threshold:
                 continue
 
-            # 娑ㄨ穼鍋滄鏌?
+            # 涨跌停检查
             if price >= df['limit_up'].iloc[i]:
                 continue
             if price <= df['limit_down'].iloc[i]:
                 continue
 
-            # 鎴愪氦閲忚繃婊わ紙鏀惧鏉′欢锛氬彧闇€瓒呰繃20鏃ュ潎鍊肩殑80%锛?
+            # 成交量过滤（放宽条件：只需超过20日均值的80%）
             if 'Volume' in df.columns:
                 prev_vol = df['Volume'].iloc[i - 1]
                 vol_ma20_prev = df['Volume'].iloc[i - 20: i].mean()
                 if not pd.isna(vol_ma20_prev) and prev_vol < vol_ma20_prev * 0.8:
                     continue
 
-            # ===== 鏃燭ransformer鐗堟湰锛氳烦杩囨墍鏈塗ransformer鐩稿叧妫€鏌?=====
-            # 鍘熺増鏈殑 transformer_prob 鍜?transformer_conf 妫€鏌ュ凡绉婚櫎
+            # ===== 无Transformer版本：跳过所有Transformer相关检查 =====
+            # 原版本的 transformer_prob 和 transformer_conf 检查已移除
 
-            # 鎵ц涔板叆
+            # 执行买入
             buy_price_raw = price * (1 + buy_slippage_rate)
             shares = int(initial_capital / buy_price_raw / 100) * 100
             if shares <= 0:
