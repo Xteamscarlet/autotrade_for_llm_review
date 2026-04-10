@@ -47,7 +47,7 @@ class EfficientAttention(nn.Module):
         self.num_heads = num_heads
         self.qkv = nn.Linear(dim, dim * 3, bias=False)
         self.proj = nn.Linear(dim, dim)
-        self.attn_dropout = nn.Dropout(0.1)
+        self.attn_dropout = nn.Dropout(0.2)
 
     def forward(self, x):
         B, N, C = x.shape

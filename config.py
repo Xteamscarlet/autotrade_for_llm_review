@@ -46,7 +46,7 @@ class ModelConfig:
     num_heads: int = 8
     num_layers: int = 4
     dim_feedforward: int = 512
-    dropout: float = 0.5
+    dropout: float = 0.45
     num_classes: int = 4
 
     # 训练高级配置

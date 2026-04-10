@@ -438,8 +438,8 @@ def train_model(settings: Optional[AppConfig] = None) -> None:
     # 重新截断极端特征值（包含新加的收益率特征�?
     for col in FEATURES:
         if col in combined_df.columns:
-            q01 = combined_df[col].quantile(0.01)
-            q99 = combined_df[col].quantile(0.99)
+            q01 = combined_df[col].quantile(0.02)  # 0.01 → 0.02
+            q99 = combined_df[col].quantile(0.98)  # 0.99 → 0.98
             combined_df[col] = combined_df[col].clip(q01, q99)
 
     combined_df = combined_df.dropna(subset=FEATURES)
@@ -553,8 +553,7 @@ def train_model(settings: Optional[AppConfig] = None) -> None:
     )
 
     # ========== 6. 模型与优化器 ==========
-    # �?更高初始学习率（1e-4 替代 3e-5），配合 cosine annealing 会自动降
-    actual_lr = 5e-5
+    actual_lr = 1e-4
 
     model = StockTransformer(
         input_dim=len(FEATURES),  # �?包含新增的收益率特征
@@ -571,11 +570,11 @@ def train_model(settings: Optional[AppConfig] = None) -> None:
     )
     grad_scaler = GradScaler('cuda', enabled=(device.type == 'cuda'))
 
-    # �?余弦退�?+ 热重启（替代 FinanceScheduler�?
+    # 余弦退火 热重启（替代 FinanceScheduler
     cosine_scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=20, T_mult=2, eta_min=1e-6)
 
     # Warmup 步数
-    warmup_steps = len(train_loader) * 2  # �?个epoch做warmup
+    warmup_steps = len(train_loader) * 1  # 1个epoch做warmup
     warmup_scheduler = FinanceScheduler(
         optimizer,
         warmup_steps=warmup_steps,
@@ -624,8 +623,8 @@ def train_model(settings: Optional[AppConfig] = None) -> None:
         total_ret_loss = 0
         optimizer.zero_grad()
 
-        # �?Warmup 阶段�?FinanceScheduler，之后切换到 Cosine Annealing
-        is_warmup = epoch < 3
+        # Warmup 阶段FinanceScheduler，之后切换到 Cosine Annealing
+        is_warmup = epoch < 1
 
         progress_bar = tqdm(train_loader, desc=f"Epoch {epoch + 1}/{mc.epochs}", leave=False)
 

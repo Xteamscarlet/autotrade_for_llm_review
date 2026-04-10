@@ -77,7 +77,7 @@ WEIGHT_DECAY=0.05
 NUM_HEADS=8
 NUM_LAYERS=4
 DIM_FEEDFORWARD=512
-DROPOUT=0.4
+DROPOUT=0.45
 
 # ==================== 风控配置 ====================
 MAX_DRAWDOWN_LIMIT=-20.0
